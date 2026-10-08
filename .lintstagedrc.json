@@ -1,0 +1,4 @@
+{
+  "src/**/*.(js|jsx)": ["lint:fix, prettier --write"],
+  "src/**/*.{json,css,md}": ["prettier --write"]
+}
