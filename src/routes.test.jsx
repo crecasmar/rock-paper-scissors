@@ -24,10 +24,10 @@ describe("AppRoutes", () => {
   });
 
   test.each(["/unknown", "/home/extra", "/some/deep/path"])(
-    "redirects the unknown route %s to the home page",
+    "shows the not found page for the unknown route %s",
     (path) => {
       render(<AppRoutes />, { initialPath: path });
-      expect(screen.getByTestId("home-page")).toBeInTheDocument();
+      expect(screen.getByTestId("not-found-page")).toBeInTheDocument();
     }
   );
 
