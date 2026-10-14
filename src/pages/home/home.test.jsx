@@ -33,7 +33,7 @@ const renderHome = () =>
 const getNameInput = () =>
   screen.getByRole("textbox", { name: "pages.home.name-label" });
 const getJoinButton = () =>
-  screen.getByRole("button", { name: "pages.home.join" });
+  screen.getByRole("button", { name: "PAGES.HOME.JOIN" });
 const getNameHint = () => screen.getByRole("alert");
 
 const NAME_HINT = "pages.home.name-hint";

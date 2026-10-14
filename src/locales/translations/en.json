@@ -4,7 +4,7 @@
   "pages.home.title": "Create new player",
   "pages.home.name-label": "Name",
   "pages.home.name-hint": "Name must be between {minValue} and {maxValue} characters: letters, numbers, spaces or hyphens",
-  "pages.home.join": "JOIN",
+  "pages.home.join": "Join",
 
   "pages.game.title": "Hi, {name}",
 
