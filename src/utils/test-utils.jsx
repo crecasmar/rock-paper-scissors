@@ -7,6 +7,20 @@ import { supportedLocales } from "../locales";
 const DEFAULT_LOCALE = "en";
 
 /**
+ * Locale that renders every message as its own id, so tests can query by id.
+ */
+export const KEYS_LOCALE = "keys";
+
+const keyMessages = Object.fromEntries(
+  Object.keys(supportedLocales[DEFAULT_LOCALE]).map((id) => [id, id])
+);
+
+const getMessages = (locale) =>
+  locale === KEYS_LOCALE
+    ? keyMessages
+    : (supportedLocales[locale] ?? supportedLocales[DEFAULT_LOCALE]);
+
+/**
  * Wraps the component under test with every provider the app needs.
  */
 const TestProviders = ({
@@ -16,9 +30,9 @@ const TestProviders = ({
 }) => (
   <MemoryRouter initialEntries={initialEntries}>
     <IntlProvider
-      locale={locale}
+      locale={locale === KEYS_LOCALE ? DEFAULT_LOCALE : locale}
       defaultLocale={DEFAULT_LOCALE}
-      messages={supportedLocales[locale] ?? supportedLocales[DEFAULT_LOCALE]}
+      messages={getMessages(locale)}
     >
       {children}
     </IntlProvider>
@@ -28,6 +42,7 @@ const TestProviders = ({
 /**
  * Custom render with providers.
  * @param {import("react").ReactElement} uiElement
+ * Pass `locale: KEYS_LOCALE` to render message ids instead of translated text.
  * @param {{ initialPath?: string, initialEntries?: string[], locale?: string } & import("@testing-library/react").RenderOptions} [options]
  */
 const customRender = (uiElement, options = {}) => {

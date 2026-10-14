@@ -4,7 +4,11 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import { useAuth } from "@/store/game-store";
-import { isValidPlayerName, PLAYER_NAME_MAX_LENGTH } from "@/utils/validation";
+import {
+  isValidPlayerName,
+  PLAYER_NAME_ERROR_DELAY_MS,
+  PLAYER_NAME_MAX_LENGTH,
+} from "@/utils/validation";
 
 import "./home.css";
 
@@ -16,7 +20,7 @@ const HomePage = () => {
   const { formatMessage } = useIntl();
   const { currentUser, login } = useAuth();
   const [name, setName] = useState("");
-  const debouncedName = useDebouncedValue(name);
+  const debouncedName = useDebouncedValue(name, PLAYER_NAME_ERROR_DELAY_MS);
 
   const nameIsValid = isValidPlayerName(name);
 

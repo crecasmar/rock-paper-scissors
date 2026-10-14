@@ -1,7 +1,14 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Route, Routes } from "react-router";
-import { act, fireEvent, render, renderHook, screen } from "@/utils/test-utils";
+import {
+  KEYS_LOCALE,
+  act,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+} from "@/utils/test-utils";
 
 import HomePage from "./home";
 import { useAuth } from "@/store/game-store";
@@ -20,14 +27,16 @@ const renderHome = () =>
       <Route path="/home" element={<HomePage />} />
       <Route path="/game" element={<div data-testid="game-page" />} />
     </Routes>,
-    { initialPath: "/home" }
+    { initialPath: "/home", locale: KEYS_LOCALE }
   );
 
-const getNameInput = () => screen.getByRole("textbox", { name: "Name*" });
-const getJoinButton = () => screen.getByRole("button", { name: "JOIN" });
+const getNameInput = () =>
+  screen.getByRole("textbox", { name: "pages.home.name-label" });
+const getJoinButton = () =>
+  screen.getByRole("button", { name: "pages.home.join" });
 const getNameHint = () => screen.getByRole("alert");
 
-const NAME_HINT = "3 to 20 characters: letters, numbers, spaces, - or _";
+const NAME_HINT = "pages.home.name-hint";
 
 describe("HomePage", () => {
   beforeEach(() => {
@@ -41,10 +50,10 @@ describe("HomePage", () => {
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
   });
 
-  test("renders the 'Create new player' title", () => {
+  test("renders the title", () => {
     renderHome();
     expect(
-      screen.getByRole("heading", { level: 1, name: "Create new player" })
+      screen.getByRole("heading", { level: 1, name: "pages.home.title" })
     ).toBeInTheDocument();
   });
 
@@ -169,7 +178,6 @@ describe("HomePage", () => {
       act(() => vi.advanceTimersByTime(PLAYER_NAME_ERROR_DELAY_MS));
 
     beforeEach(() => {
-      // shouldAdvanceTime keeps user-event's internal waits from stalling
       vi.useFakeTimers({ shouldAdvanceTime: true });
     });
 
