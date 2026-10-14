@@ -1,0 +1,38 @@
+@reference "@/index.css";
+
+.home {
+  @apply flex grow flex-col items-center justify-center px-4 py-8;
+}
+
+.home__form {
+  @apply flex w-full max-w-90 flex-col gap-2 text-left;
+}
+
+.home__field {
+  @apply relative;
+}
+
+.home__input {
+  @apply block w-full appearance-none rounded-md border border-border bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-heading;
+  @apply focus:border-accent focus:ring-0 focus:outline-none;
+  @apply aria-invalid:border-red-500;
+}
+
+.home__input-label {
+  @apply absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 bg-surface px-2 text-sm text-body transition-all duration-300;
+  @apply peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100;
+  @apply peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-accent;
+  @apply peer-aria-invalid:text-red-500;
+  @apply rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4;
+}
+
+.home__hint {
+  @apply min-h-4 text-center text-xs text-red-500;
+}
+
+.home__button {
+  @apply mt-4 cursor-pointer rounded-md bg-accent px-4 py-2.5 font-semibold tracking-wider text-white;
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+  @apply disabled:cursor-not-allowed disabled:opacity-40;
+  @apply transition-opacity duration-300 ease-in-out motion-reduce:transition-none;
+}
