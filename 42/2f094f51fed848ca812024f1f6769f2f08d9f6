@@ -1,0 +1,21 @@
+src/locales/locales.test.js
+  s_94c82049d11194::t_d4f89938a1a5fb 1-65
+src/pages/home/home.jsx
+  s_94c82049d11194::t_13bdac7d263d64 7-11,23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "422f094f51fed848ca812024f1f6769f2f08d9f6",
+  "prompts": {},
+  "sessions": {
+    "s_94c82049d11194": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2b4168b1-f388-4a0a-8896-2a2e1e87165e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
