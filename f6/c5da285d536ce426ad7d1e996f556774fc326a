@@ -1,0 +1,43 @@
+src/index.css
+  s_13b701c3bae1df::t_16587fb86c1b4b 7,34,91
+src/locales/translations/en.json
+  s_13b701c3bae1df::t_22dda4f2563db0 4-13,19-22
+src/locales/translations/es.json
+  s_13b701c3bae1df::t_c12b2453e38da8 4-13,19-22
+src/pages/game/game.test.jsx
+  s_13b701c3bae1df::t_240f348c8e2651 1-2,4-11,13,15-21,23,25,31,34-51,53-57,65-205
+src/pages/home/home.test.jsx
+  s_13b701c3bae1df::t_2857238c9eba67 15-19,43
+src/routes.test.jsx
+  s_13b701c3bae1df::t_b8053910a6ba47 4,9-19,28,33,40,46,52,54,57-59,70-71,75,77-79
+src/utils/test-utils.jsx
+  s_13b701c3bae1df::t_071aff8c6fa55c 11,15-16,18-21
+src/components/game/action-button/action-button.css
+  s_13b701c3bae1df::t_8cfb524a30bfe3 1-9
+src/components/game/index.js
+  s_13b701c3bae1df::t_0676bb186e3396 1-2
+src/components/game/nav-bar/nav-bar.css
+  s_13b701c3bae1df::t_631f9e82a67ba0 1-20
+src/components/game/nav-bar/nav-bar.test.jsx
+  s_13b701c3bae1df::t_71b60fe11654c0 1-40
+src/hooks/use-game-round.js
+  s_13b701c3bae1df::t_1aae60b0f0d301 1-58
+src/utils/game-rules.test.js
+  s_13b701c3bae1df::t_34b4c78031e423 3-14,17-18,20,22-30,34-45,47-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f6c5da285d536ce426ad7d1e996f556774fc326a",
+  "prompts": {},
+  "sessions": {
+    "s_13b701c3bae1df": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2c8721ef-ba7e-47e3-863a-004123db169b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
