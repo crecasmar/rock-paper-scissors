@@ -1,6 +1,7 @@
 {
   "app-name": "Rock Paper Scissors",
 
+  "components.nav-bar.label": "Main navigation",
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
@@ -22,5 +23,5 @@
   "pages.game.bot-thinking": "The bot is choosing its move",
 
   "pages.not-found.title": "Page not found",
-  "pages.not-found.back": "Back to home"
+  "pages.not-found.back": "Go back"
 }

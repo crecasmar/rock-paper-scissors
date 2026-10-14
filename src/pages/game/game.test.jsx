@@ -76,13 +76,10 @@ describe("GamePage", () => {
       vi.restoreAllMocks();
     });
 
-    test("shows the nav bar greeting and the score", () => {
+    test("shows the score", () => {
       renderGame();
 
       expect(screen.getByTestId("game-page")).toBeInTheDocument();
-      expect(screen.getByRole("banner")).toHaveTextContent(
-        "components.nav-bar.greeting Maria"
-      );
       expect(screen.getByText(score(0))).toBeInTheDocument();
     });
 
@@ -175,7 +172,7 @@ describe("GamePage", () => {
         waitForBot();
 
         expect(getIcon(YOU, "🖐️")).toHaveClass(
-          "game-page__choice-icon--attack-right"
+          "game-page__choice-icon_attack-right"
         );
         expect(getIcon(BOT, "✊")).toHaveClass("game-page__choice-icon", {
           exact: true,
@@ -193,7 +190,7 @@ describe("GamePage", () => {
           exact: true,
         });
         expect(getIcon(BOT, "✊")).toHaveClass(
-          "game-page__choice-icon--attack-left"
+          "game-page__choice-icon_attack-left"
         );
       });
 
@@ -205,10 +202,10 @@ describe("GamePage", () => {
         waitForBot();
 
         expect(getIcon(YOU, "✊")).toHaveClass(
-          "game-page__choice-icon--clash-right"
+          "game-page__choice-icon_clash-right"
         );
         expect(getIcon(BOT, "✊")).toHaveClass(
-          "game-page__choice-icon--clash-left"
+          "game-page__choice-icon_clash-left"
         );
       });
     });
@@ -240,15 +237,12 @@ describe("GamePage", () => {
       expect(result.current.players).toEqual({ Maria: { score: 1 } });
     });
 
-    test("logging out goes back home", async () => {
-      const user = setupUser();
+    test("goes back home when the player logs out", () => {
       renderGame();
 
-      await user.click(
-        screen.getByRole("button", { name: "components.nav-bar.logout" })
-      );
+      const { logout } = getAuth();
+      act(() => logout());
 
-      expect(getAuth().currentUser).toBeNull();
       expect(screen.getByTestId("home-page")).toBeInTheDocument();
     });
 

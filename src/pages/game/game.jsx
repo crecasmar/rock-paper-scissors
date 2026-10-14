@@ -1,7 +1,7 @@
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { NavBar, ActionButton } from "@/components/game";
+import { ActionButton } from "@/components";
 import useGameRound from "@/hooks/use-game-round";
 import { useAuth, useGameStats } from "@/store/game-store";
 import { MOVE_DETAILS, RESULT_MESSAGES, RESULTS } from "@/utils/game-rules";
@@ -76,7 +76,7 @@ const PlayerChoice = ({ title, move, animation, thinkingLabel }) => (
  */
 const GamePage = () => {
   const { formatMessage } = useIntl();
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const { currentUserScore, addWin } = useGameStats();
   const { round, isThinking, play } = useGameRound({ onWin: addWin });
   const animations = round?.result ? ICON_ANIMATIONS[round.result] : {};
@@ -86,55 +86,51 @@ const GamePage = () => {
   }
 
   return (
-    <>
-      <NavBar userName={currentUser} onLogout={logout} />
+    <main data-testid="game-page" className="game-page">
+      <p className="game-page__score" aria-live="polite">
+        <FormattedMessage
+          id="pages.game.score"
+          values={{ score: currentUserScore }}
+        />
+      </p>
 
-      <main data-testid="game-page" className="game-page">
-        <p className="game-page__score" aria-live="polite">
-          <FormattedMessage
-            id="pages.game.score"
-            values={{ score: currentUserScore }}
+      <div className="game-page__actions">
+        {Object.entries(MOVE_DETAILS).map(([move, { icon, message }]) => (
+          <ActionButton
+            key={move}
+            icon={icon}
+            label={formatMessage(message)}
+            onClick={() => play(move)}
+            disabled={isThinking}
           />
-        </p>
+        ))}
+      </div>
 
-        <div className="game-page__actions">
-          {Object.entries(MOVE_DETAILS).map(([move, { icon, message }]) => (
-            <ActionButton
-              key={move}
-              icon={icon}
-              label={formatMessage(message)}
-              onClick={() => play(move)}
-              disabled={isThinking}
+      {round && (
+        <>
+          {/* Keyed by round so the icons remount and replay their animation */}
+          <div key={round.id} className="game-page__control">
+            <PlayerChoice
+              title={<FormattedMessage id="pages.game.you" />}
+              move={round.playerMove}
+              animation={animations.player}
             />
-          ))}
-        </div>
+            <PlayerChoice
+              title={<FormattedMessage id="pages.game.bot" />}
+              move={round.botMove}
+              animation={animations.bot}
+              thinkingLabel={formatMessage({ id: "pages.game.bot-thinking" })}
+            />
+          </div>
 
-        {round && (
-          <>
-            {/* Keyed by round so the icons remount and replay their animation */}
-            <div key={round.id} className="game-page__control">
-              <PlayerChoice
-                title={<FormattedMessage id="pages.game.you" />}
-                move={round.playerMove}
-                animation={animations.player}
-              />
-              <PlayerChoice
-                title={<FormattedMessage id="pages.game.bot" />}
-                move={round.botMove}
-                animation={animations.bot}
-                thinkingLabel={formatMessage({ id: "pages.game.bot-thinking" })}
-              />
-            </div>
-
-            <p className="game-page__result" role="status">
-              {round.result && (
-                <FormattedMessage {...RESULT_MESSAGES[round.result]} />
-              )}
-            </p>
-          </>
-        )}
-      </main>
-    </>
+          <p className="game-page__result" role="status">
+            {round.result && (
+              <FormattedMessage {...RESULT_MESSAGES[round.result]} />
+            )}
+          </p>
+        </>
+      )}
+    </main>
   );
 };
 

@@ -59,6 +59,47 @@ describe("AppRoutes", () => {
     );
   });
 
+  describe("navigation bar", () => {
+    test.each(["/home", "/unknown"])(
+      "shows only the app name on %s when no player is logged in",
+      (path) => {
+        renderRoutes(AppRoutes, path);
+
+        expect(screen.getByRole("banner")).toHaveTextContent("app-name");
+        expect(
+          screen.queryByRole("button", { name: "components.nav-bar.logout" })
+        ).not.toBeInTheDocument();
+      }
+    );
+
+    test("greets the player on the not found page", async () => {
+      const user = userEvent.setup();
+      const { unmount } = renderRoutes(AppRoutes, "/");
+      await registerPlayer(user, "Maria");
+      unmount();
+
+      renderRoutes(AppRoutes, "/unknown");
+
+      expect(screen.getByTestId("not-found-page")).toBeInTheDocument();
+      expect(screen.getByRole("banner")).toHaveTextContent(
+        "components.nav-bar.greeting Maria"
+      );
+    });
+
+    test("logging out from the game goes back home", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/");
+      await registerPlayer(user, "Maria");
+
+      await user.click(
+        screen.getByRole("button", { name: "components.nav-bar.logout" })
+      );
+
+      expect(screen.getByTestId("home-page")).toBeInTheDocument();
+      expect(screen.getByRole("banner")).toHaveTextContent("app-name");
+    });
+  });
+
   describe("after the app is closed and reopened", () => {
     const reopenApp = async () => {
       vi.resetModules();

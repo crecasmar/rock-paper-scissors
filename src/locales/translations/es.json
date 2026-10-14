@@ -1,6 +1,7 @@
 {
   "app-name": "Piedra Papel Tijeras",
 
+  "components.nav-bar.label": "Navegación principal",
   "components.nav-bar.greeting": "Hola {name}",
   "components.nav-bar.logout": "Cerrar sesión",
 
@@ -22,5 +23,5 @@
   "pages.game.bot-thinking": "El bot está eligiendo su jugada",
 
   "pages.not-found.title": "Página no encontrada",
-  "pages.not-found.back": "Volver al inicio"
+  "pages.not-found.back": "Volver"
 }
