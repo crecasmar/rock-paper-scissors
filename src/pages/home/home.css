@@ -1,7 +1,7 @@
 @reference "@/index.css";
 
 .home-page {
-  @apply flex grow flex-col items-center justify-center px-4 py-8;
+  @apply flex grow flex-col items-center justify-start px-4 pt-16 pb-8 sm:pt-24;
 }
 
 .home-page__form {
@@ -31,7 +31,7 @@
 }
 
 .home-page__hint {
-  @apply min-h-4 text-center text-xs text-red-500;
+  @apply min-h-8 text-center text-xs text-red-500;
 }
 
 .home-page__button {

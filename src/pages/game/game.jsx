@@ -1,36 +1,12 @@
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { ActionButton } from "@/components";
+import { ActionButton, Spinner } from "@/components";
 import useGameRound from "@/hooks/use-game-round";
 import { useAuth, useGameStats } from "@/store/game-store";
 import { MOVE_DETAILS, RESULT_MESSAGES, RESULTS } from "@/utils/game-rules";
 
 import "./game.css";
-
-const Spinner = ({ label }) => (
-  <svg
-    className="game-page__spinner"
-    viewBox="0 0 24 24"
-    fill="none"
-    role="img"
-    aria-label={label}
-  >
-    <circle
-      className="opacity-25"
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="4"
-    />
-    <path
-      className="opacity-75"
-      fill="currentColor"
-      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-    />
-  </svg>
-);
 
 /**
  * Icon animation for each side once the round is resolved. The player sits
@@ -43,7 +19,7 @@ const ICON_ANIMATIONS = Object.freeze({
 });
 
 /**
- * One side of the round summary: who played and which move they chose.
+ * Round summary: who played and which move they chose.
  * @param {{ title: import("react").ReactNode, move: string | null, animation?: string | null, thinkingLabel?: string }} props
  */
 const PlayerChoice = ({ title, move, animation, thinkingLabel }) => (
@@ -66,7 +42,7 @@ const PlayerChoice = ({ title, move, animation, thinkingLabel }) => (
         </span>
       </>
     ) : (
-      <Spinner label={thinkingLabel} />
+      <Spinner className="game-page__spinner" label={thinkingLabel} />
     )}
   </div>
 );
