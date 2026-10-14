@@ -1,0 +1,23 @@
+.github/workflows/build.yml
+  s_48f071d28e5ef0::t_7099c46bbe8eac 22-29
+.github/workflows/deploy.yml
+  s_48f071d28e5ef0::t_d2a881bc0b3b73 31,34
+sonar-project.properties
+  s_48f071d28e5ef0::t_6478a96ef5f128 5-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "088df16cb5822d58e44182994a258af4b89c3a74",
+  "prompts": {},
+  "sessions": {
+    "s_48f071d28e5ef0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "23992326-6b6e-49b7-806b-d4d817bb0fc3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
