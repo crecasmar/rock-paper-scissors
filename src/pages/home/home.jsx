@@ -7,6 +7,7 @@ import { useAuth } from "@/store/game-store";
 import {
   isValidPlayerName,
   PLAYER_NAME_ERROR_DELAY_MS,
+  PLAYER_NAME_MIN_LENGTH,
   PLAYER_NAME_MAX_LENGTH,
 } from "@/utils/validation";
 
@@ -42,17 +43,17 @@ const HomePage = () => {
   }
 
   return (
-    <main data-testid="home-page" className="home">
+    <main data-testid="home-page" className="home-page">
       <h1>
         <FormattedMessage id="pages.home.title" />
       </h1>
 
-      <form className="home__form" onSubmit={handleSubmit} noValidate>
-        <div className="home__field">
+      <form className="home-page__form" onSubmit={handleSubmit} noValidate>
+        <div className="home-page__field">
           <input
             id="player-name"
             type="text"
-            className="home__input peer"
+            className="home-page__input peer"
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder=" "
@@ -63,16 +64,28 @@ const HomePage = () => {
             aria-describedby={showNameError ? "player-name-hint" : undefined}
             aria-invalid={showNameError}
           />
-          <label htmlFor="player-name" className="home__input-label">
+          <label htmlFor="player-name" className="home-page__input-label">
             <FormattedMessage id="pages.home.name-label" />
           </label>
         </div>
 
-        <p id="player-name-hint" className="home__hint" role="alert">
-          {showNameError && <FormattedMessage id="pages.home.name-hint" />}
+        <p id="player-name-hint" className="home-page__hint" role="alert">
+          {showNameError && (
+            <FormattedMessage
+              id="pages.home.name-hint"
+              values={{
+                minValue: PLAYER_NAME_MIN_LENGTH,
+                maxValue: PLAYER_NAME_MAX_LENGTH,
+              }}
+            />
+          )}
         </p>
 
-        <button type="submit" className="home__button" disabled={!nameIsValid}>
+        <button
+          type="submit"
+          className="home-page__button"
+          disabled={!nameIsValid}
+        >
           <FormattedMessage id="pages.home.join" />
         </button>
       </form>

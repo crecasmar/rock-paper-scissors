@@ -2,9 +2,12 @@
   "app-name": "Piedra Papel Tijeras",
 
   "pages.home.title": "Crear nuevo jugador",
-  "pages.home.name-label": "Nombre*",
-  "pages.home.name-hint": "El nombre debe tener entre 3 y 20 caracteres: letras, números, espacios o guiones",
+  "pages.home.name-label": "Nombre",
+  "pages.home.name-hint": "El nombre debe tener entre {minValue} y {maxValue} caracteres: letras, números, espacios o guiones",
   "pages.home.join": "UNIRSE",
 
-  "pages.game.title": "Hola, {name}"
+  "pages.game.title": "Hola, {name}",
+
+  "pages.not-found.title": "Página no encontrada",
+  "pages.not-found.back": "Volver al inicio"
 }
