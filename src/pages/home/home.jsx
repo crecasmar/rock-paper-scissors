@@ -86,7 +86,7 @@ const HomePage = () => {
           className="home-page__button"
           disabled={!nameIsValid}
         >
-          <FormattedMessage id="pages.home.join" />
+          {formatMessage({ id: "pages.home.join" }).toUpperCase()}
         </button>
       </form>
     </main>

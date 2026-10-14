@@ -1,13 +1,27 @@
 {
   "app-name": "Rock Paper Scissors",
 
+  "components.nav-bar.label": "Main navigation",
+  "components.nav-bar.greeting": "Hello {name}",
+  "components.nav-bar.logout": "Log out",
+
+  "game.moves.rock": "Rock",
+  "game.moves.paper": "Paper",
+  "game.moves.scissors": "Scissors",
+  "game.results.win": "You won!",
+  "game.results.lose": "You lost!",
+  "game.results.tie": "Tie!",
+
   "pages.home.title": "Create new player",
   "pages.home.name-label": "Name",
   "pages.home.name-hint": "Name must be between {minValue} and {maxValue} characters: letters, numbers, spaces or hyphens",
-  "pages.home.join": "JOIN",
+  "pages.home.join": "Join",
 
-  "pages.game.title": "Hi, {name}",
+  "pages.game.score": "Score: {score}",
+  "pages.game.you": "You:",
+  "pages.game.bot": "Bot:",
+  "pages.game.bot-thinking": "The bot is choosing its move",
 
   "pages.not-found.title": "Page not found",
-  "pages.not-found.back": "Back to home"
+  "pages.not-found.back": "Go back"
 }

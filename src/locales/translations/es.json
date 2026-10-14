@@ -1,13 +1,27 @@
 {
   "app-name": "Piedra Papel Tijeras",
 
+  "components.nav-bar.label": "Navegación principal",
+  "components.nav-bar.greeting": "Hola {name}",
+  "components.nav-bar.logout": "Cerrar sesión",
+
+  "game.moves.rock": "Piedra",
+  "game.moves.paper": "Papel",
+  "game.moves.scissors": "Tijeras",
+  "game.results.win": "¡Has ganado!",
+  "game.results.lose": "¡Has perdido!",
+  "game.results.tie": "¡Empate!",
+
   "pages.home.title": "Crear nuevo jugador",
   "pages.home.name-label": "Nombre",
   "pages.home.name-hint": "El nombre debe tener entre {minValue} y {maxValue} caracteres: letras, números, espacios o guiones",
-  "pages.home.join": "UNIRSE",
+  "pages.home.join": "Unirse",
 
-  "pages.game.title": "Hola, {name}",
+  "pages.game.score": "Puntuación: {score}",
+  "pages.game.you": "Tú:",
+  "pages.game.bot": "Bot:",
+  "pages.game.bot-thinking": "El bot está eligiendo su jugada",
 
   "pages.not-found.title": "Página no encontrada",
-  "pages.not-found.back": "Volver al inicio"
+  "pages.not-found.back": "Volver"
 }
