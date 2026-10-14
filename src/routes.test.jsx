@@ -40,12 +40,12 @@ describe("AppRoutes", () => {
     const user = userEvent.setup();
     render(<AppRoutes />, { initialPath: "/" });
 
-    await user.type(screen.getByRole("textbox", { name: "Name" }), "Maria");
+    await user.type(screen.getByRole("textbox", { name: "Name*" }), "Maria");
     await user.click(screen.getByRole("button", { name: "JOIN" }));
 
     expect(screen.getByTestId("game-page")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 1, name: "Hi, Maria!" })
+      screen.getByRole("heading", { level: 1, name: "Hi, Maria" })
     ).toBeInTheDocument();
   });
 
@@ -58,7 +58,7 @@ describe("AppRoutes", () => {
     test("restores the registered player and opens the game", async () => {
       const user = userEvent.setup();
       const { unmount } = render(<AppRoutes />, { initialPath: "/" });
-      await user.type(screen.getByRole("textbox", { name: "Name" }), "Maria");
+      await user.type(screen.getByRole("textbox", { name: "Name*" }), "Maria");
       await user.click(screen.getByRole("button", { name: "JOIN" }));
       unmount();
 
@@ -66,7 +66,7 @@ describe("AppRoutes", () => {
       render(<ReopenedRoutes />, { initialPath: "/" });
 
       expect(
-        screen.getByRole("heading", { level: 1, name: "Hi, Maria!" })
+        screen.getByRole("heading", { level: 1, name: "Hi, Maria" })
       ).toBeInTheDocument();
     });
 

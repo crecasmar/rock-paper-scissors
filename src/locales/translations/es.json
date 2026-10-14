@@ -3,7 +3,7 @@
 
   "pages.home.title": "Crear nuevo jugador",
   "pages.home.name-label": "Nombre*",
-  "pages.home.name-hint": "De 3 a 20 caracteres: letras, números, espacios, - o _",
+  "pages.home.name-hint": "El nombre debe tener entre 3 y 20 caracteres: letras, números, espacios o guiones",
   "pages.home.join": "UNIRSE",
 
   "pages.game.title": "Hola, {name}"

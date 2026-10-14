@@ -1,10 +1,11 @@
-import { describe, test, expect, beforeEach } from "vitest";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Route, Routes } from "react-router";
 import { act, fireEvent, render, renderHook, screen } from "@/utils/test-utils";
 
 import HomePage from "./home";
 import { useAuth } from "@/store/game-store";
+import { PLAYER_NAME_ERROR_DELAY_MS } from "@/utils/validation";
 
 const STORAGE_KEY = "rock-paper-scissors-storage";
 
@@ -22,8 +23,11 @@ const renderHome = () =>
     { initialPath: "/home" }
   );
 
-const getNameInput = () => screen.getByRole("textbox", { name: "Name" });
+const getNameInput = () => screen.getByRole("textbox", { name: "Name*" });
 const getJoinButton = () => screen.getByRole("button", { name: "JOIN" });
+const getNameHint = () => screen.getByRole("alert");
+
+const NAME_HINT = "3 to 20 characters: letters, numbers, spaces, - or _";
 
 describe("HomePage", () => {
   beforeEach(() => {
@@ -64,7 +68,6 @@ describe("HomePage", () => {
       await user.type(getNameInput(), name);
 
       expect(getJoinButton()).toBeDisabled();
-      expect(getNameInput()).toHaveAttribute("aria-invalid", "true");
     }
   );
 
@@ -156,5 +159,118 @@ describe("HomePage", () => {
       screen.getByRole("heading", { level: 1, name: "Crear nuevo jugador" })
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "UNIRSE" })).toBeDisabled();
+  });
+
+  describe("invalid name error", () => {
+    const setupUser = () =>
+      userEvent.setup({ advanceTimers: (ms) => vi.advanceTimersByTime(ms) });
+
+    const waitForDebounce = () =>
+      act(() => vi.advanceTimersByTime(PLAYER_NAME_ERROR_DELAY_MS));
+
+    beforeEach(() => {
+      // shouldAdvanceTime keeps user-event's internal waits from stalling
+      vi.useFakeTimers({ shouldAdvanceTime: true });
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    test("is hidden before the user types anything", () => {
+      renderHome();
+
+      expect(getNameHint()).toBeEmptyDOMElement();
+      expect(getNameInput()).toHaveAttribute("aria-invalid", "false");
+      expect(getNameInput()).not.toHaveAttribute("aria-describedby");
+    });
+
+    test("is not shown while the user is still typing", async () => {
+      const user = setupUser();
+      renderHome();
+
+      await user.type(getNameInput(), "ab");
+      act(() => vi.advanceTimersByTime(PLAYER_NAME_ERROR_DELAY_MS - 100));
+
+      expect(getNameHint()).toBeEmptyDOMElement();
+      expect(getNameInput()).toHaveAttribute("aria-invalid", "false");
+    });
+
+    test.each(["ab", "   ", "maria!"])(
+      "is shown once the user stops typing the invalid name %j",
+      async (name) => {
+        const user = setupUser();
+        renderHome();
+
+        await user.type(getNameInput(), name);
+        waitForDebounce();
+
+        expect(getNameHint()).toHaveTextContent(NAME_HINT);
+        expect(getNameInput()).toHaveAttribute("aria-invalid", "true");
+        expect(getNameInput()).toHaveAccessibleDescription(NAME_HINT);
+      }
+    );
+
+    test("restarts the wait on every keystroke", async () => {
+      const user = setupUser();
+      renderHome();
+
+      await user.type(getNameInput(), "a");
+      act(() => vi.advanceTimersByTime(PLAYER_NAME_ERROR_DELAY_MS - 100));
+      await user.type(getNameInput(), "b");
+      act(() => vi.advanceTimersByTime(PLAYER_NAME_ERROR_DELAY_MS - 100));
+
+      expect(getNameHint()).toBeEmptyDOMElement();
+
+      act(() => vi.advanceTimersByTime(100));
+
+      expect(getNameHint()).toHaveTextContent(NAME_HINT);
+    });
+
+    test("is not shown for a valid name", async () => {
+      const user = setupUser();
+      renderHome();
+
+      await user.type(getNameInput(), "Maria");
+      waitForDebounce();
+
+      expect(getNameHint()).toBeEmptyDOMElement();
+      expect(getNameInput()).toHaveAttribute("aria-invalid", "false");
+    });
+
+    test("clears immediately once the name becomes valid", async () => {
+      const user = setupUser();
+      renderHome();
+
+      await user.type(getNameInput(), "ab");
+      waitForDebounce();
+      await user.type(getNameInput(), "c");
+
+      expect(getNameHint()).toBeEmptyDOMElement();
+      expect(getNameInput()).toHaveAttribute("aria-invalid", "false");
+    });
+
+    test("clears immediately once the input is emptied", async () => {
+      const user = setupUser();
+      renderHome();
+
+      await user.type(getNameInput(), "ab");
+      waitForDebounce();
+      await user.clear(getNameInput());
+      waitForDebounce();
+
+      expect(getNameHint()).toBeEmptyDOMElement();
+      expect(getNameInput()).toHaveAttribute("aria-invalid", "false");
+    });
+
+    test("is not shown after leaving the page mid-wait", async () => {
+      const user = setupUser();
+      const { unmount } = renderHome();
+
+      await user.type(getNameInput(), "ab");
+      unmount();
+
+      expect(vi.getTimerCount()).toBe(0);
+    });
   });
 });

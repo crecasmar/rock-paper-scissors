@@ -27,11 +27,12 @@
 }
 
 .home__hint {
-  @apply text-xs text-body text-center;
+  @apply min-h-4 text-center text-xs text-red-500;
 }
 
 .home__button {
   @apply mt-4 cursor-pointer rounded-md bg-accent px-4 py-2.5 font-semibold tracking-wider text-white;
   @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
   @apply disabled:cursor-not-allowed disabled:opacity-40;
+  @apply transition-opacity duration-300 ease-in-out motion-reduce:transition-none;
 }

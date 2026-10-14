@@ -3,7 +3,7 @@
 
   "pages.home.title": "Create new player",
   "pages.home.name-label": "Name*",
-  "pages.home.name-hint": "3 to 20 characters: letters, numbers, spaces, - or _",
+  "pages.home.name-hint": "Name must be between 3 and 20 characters: letters, numbers, spaces or hyphens",
   "pages.home.join": "JOIN",
 
   "pages.game.title": "Hi, {name}"

@@ -1,6 +1,9 @@
 export const PLAYER_NAME_MIN_LENGTH = 3;
 export const PLAYER_NAME_MAX_LENGTH = 20;
 
+/** How long the user must stop typing before an invalid name is reported. */
+export const PLAYER_NAME_ERROR_DELAY_MS = 500;
+
 const PLAYER_NAME_PATTERN = /^[\p{L}\p{N} _-]+$/u;
 
 /**

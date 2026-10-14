@@ -6,7 +6,7 @@ import GamePage from "./game";
 
 let currentUser = null;
 
-vi.mock("../../store/game-store", () => ({
+vi.mock("@/store/game-store", () => ({
   useAuth: () => ({ currentUser, login: vi.fn(), logout: vi.fn() }),
 }));
 
@@ -34,7 +34,7 @@ describe("GamePage", () => {
     renderGame();
     expect(screen.getByTestId("game-page")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 1, name: "Hi, Maria!" })
+      screen.getByRole("heading", { level: 1, name: "Hi, Maria" })
     ).toBeInTheDocument();
   });
 });
