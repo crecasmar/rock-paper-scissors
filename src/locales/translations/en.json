@@ -1,3 +1,10 @@
 {
-  "app-name": "Rock Paper Scissors"
+  "app-name": "Rock Paper Scissors",
+
+  "pages.home.title": "Create new player",
+  "pages.home.name-label": "Name*",
+  "pages.home.name-hint": "3 to 20 characters: letters, numbers, spaces, - or _",
+  "pages.home.join": "JOIN",
+
+  "pages.game.title": "Hi, {name}"
 }

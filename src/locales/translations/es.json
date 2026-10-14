@@ -1,3 +1,10 @@
 {
-  "app-name": "Piedra Papel Tijeras"
+  "app-name": "Piedra Papel Tijeras",
+
+  "pages.home.title": "Crear nuevo jugador",
+  "pages.home.name-label": "Nombre*",
+  "pages.home.name-hint": "De 3 a 20 caracteres: letras, números, espacios, - o _",
+  "pages.home.join": "UNIRSE",
+
+  "pages.game.title": "Hola, {name}"
 }

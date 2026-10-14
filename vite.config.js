@@ -1,11 +1,17 @@
 import { VitePWA } from "vite-plugin-pwa";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const srcDir = fileURLToPath(new URL("./src", import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     VitePWA({
       registerType: "prompt",
       injectRegister: false,
@@ -51,5 +57,16 @@ export default defineConfig({
       ],
     },
     setupFiles: "./src/setupTests.js",
+  },
+  resolve: {
+    alias: {
+      "@": srcDir,
+      src: srcDir,
+      "@utils": path.resolve(srcDir, "utils"),
+      "@assets": path.resolve(srcDir, "assets"),
+      "@components": path.resolve(srcDir, "components"),
+      "@pages": path.resolve(srcDir, "pages"),
+      "@store": path.resolve(srcDir, "store"),
+    },
   },
 });
