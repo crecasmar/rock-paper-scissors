@@ -99,11 +99,11 @@ const GamePage = () => {
             />
           </div>
 
-          <p className="game-page__result" role="status">
+          <output className="game-page__result">
             {round.result && (
               <FormattedMessage {...RESULT_MESSAGES[round.result]} />
             )}
-          </p>
+          </output>
         </>
       )}
     </main>

@@ -5,6 +5,12 @@
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
+  "components.reload-toast.offline-ready": "The game is ready to play offline!",
+  "components.reload-toast.new-version": "A new version of the game is available. Do you want to update now?",
+  "components.reload-toast.update": "Update",
+  "components.reload-toast.later": "Later",
+  "components.reload-toast.close": "Close",
+
   "game.moves.rock": "Rock",
   "game.moves.paper": "Paper",
   "game.moves.scissors": "Scissors",

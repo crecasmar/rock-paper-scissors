@@ -5,6 +5,12 @@
   "components.nav-bar.greeting": "Hola {name}",
   "components.nav-bar.logout": "Cerrar sesión",
 
+  "components.reload-toast.offline-ready": "¡El juego está listo para jugar sin conexión!",
+  "components.reload-toast.new-version": "Hay una nueva versión del juego. ¿Quieres actualizar ahora?",
+  "components.reload-toast.update": "Actualizar",
+  "components.reload-toast.later": "Luego",
+  "components.reload-toast.close": "Cerrar",
+
   "game.moves.rock": "Piedra",
   "game.moves.paper": "Papel",
   "game.moves.scissors": "Tijeras",
