@@ -1,0 +1,23 @@
+src/pages/not-found/not-found.test.jsx
+  s_b678a2234f8487::t_876f17b801e40e 1-81
+src/routes.jsx
+  s_b678a2234f8487::t_bcd5d4eefb188f 5,16-20
+src/routes.test.jsx
+  s_b678a2234f8487::t_9965c8b49a97d9 27,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "546d011b2f3e95913a01e6959fc01f8bcb8edfb5",
+  "prompts": {},
+  "sessions": {
+    "s_b678a2234f8487": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6a8883a-b48e-4962-8441-1fa6f8e5ccb8",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
