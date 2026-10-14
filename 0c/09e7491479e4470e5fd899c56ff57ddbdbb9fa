@@ -1,0 +1,14 @@
+sonar-project.properties
+  h_a150d784bc5362 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0c09e7491479e4470e5fd899c56ff57ddbdbb9fa",
+  "prompts": {},
+  "humans": {
+    "h_a150d784bc5362": {
+      "author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
