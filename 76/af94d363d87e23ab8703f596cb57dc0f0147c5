@@ -1,0 +1,23 @@
+src/hooks/use-game-round.js
+  s_13b701c3bae1df::t_2cb88b7bc218a8 12,29,41-43,52
+src/hooks/use-game-round.test.js
+  s_13b701c3bae1df::t_f998a39ee553d4 34,63,116-125
+src/pages/game/game.test.jsx
+  s_13b701c3bae1df::t_d779a5db2af4e8 156-215
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "76af94d363d87e23ab8703f596cb57dc0f0147c5",
+  "prompts": {},
+  "sessions": {
+    "s_13b701c3bae1df": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2c8721ef-ba7e-47e3-863a-004123db169b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
