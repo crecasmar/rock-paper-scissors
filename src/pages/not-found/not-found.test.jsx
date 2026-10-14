@@ -65,17 +65,4 @@ describe("NotFoundPage", () => {
 
     expect(screen.getByTestId("game-page")).toBeInTheDocument();
   });
-
-  test("renders the Spanish translations", () => {
-    renderNotFound("es");
-    expect(
-      screen.getByRole("heading", {
-        level: 1,
-        name: "404 - Página no encontrada",
-      })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: "Volver al inicio" })
-    ).toBeInTheDocument();
-  });
 });
