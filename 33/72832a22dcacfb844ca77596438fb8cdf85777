@@ -1,0 +1,21 @@
+src/pages/home/home.test.jsx
+  s_50bf8e8248327f::t_61df7638dbbbd0 1-28
+src/store/game-store.test.js
+  s_50bf8e8248327f::t_ad63d89ee7ae3c 1-180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3372832a22dcacfb844ca77596438fb8cdf85777",
+  "prompts": {},
+  "sessions": {
+    "s_50bf8e8248327f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c3dc70ec-427d-4516-a079-3e49e425184c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
