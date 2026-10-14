@@ -1,0 +1,20 @@
+src/locales/translations/en.json
+  h_a150d784bc5362 7
+src/locales/translations/es.json
+  h_a150d784bc5362 7
+src/pages/home/home.jsx
+  h_a150d784bc5362 89
+src/pages/home/home.test.jsx
+  h_a150d784bc5362 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "610413eb182e2411b8a414d1c0bf6e171ee7c133",
+  "prompts": {},
+  "humans": {
+    "h_a150d784bc5362": {
+      "author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
