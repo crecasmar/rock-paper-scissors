@@ -36,4 +36,20 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    coverage: {
+      provider: "istanbul",
+      reporter: ["text", "html", "lcov"],
+      reportsDirectory: "./coverage",
+      include: ["src/**/*.{js,jsx}"],
+      exclude: [
+        "src/setupTests.js",
+        "src/utils/test-utils.jsx",
+        "src/main.jsx",
+      ],
+    },
+    setupFiles: "./src/setupTests.js",
+  },
 });

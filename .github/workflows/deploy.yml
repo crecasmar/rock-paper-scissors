@@ -28,40 +28,10 @@ jobs:
       - name: Run Vitest and generate coverage
         run: npm run test:coverage
 
-      - name: Save coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-          retention-days: 1
-
-  # 2. SONARQUBE SCAN
-  sonarqube:
-    name: SonarQube Scan
-    needs: lint-and-test # Stops the pipeline if ESLint and tests fail
-    runs-on: ubuntu-latest
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Download coverage report
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-
-      - name: Scan in SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  # 3. BUILD & DEPLOY
+  # 2. BUILD & DEPLOY (SonarQube analysis runs in build.yml)
   build-and-deploy:
     name: Build & Deploy
-    needs: sonarqube # Waits for the scan to complete successfully
+    needs: lint-and-test # Stops the deploy if ESLint or tests fail
     runs-on: ubuntu-latest
     steps:
       - name: Code checkout
