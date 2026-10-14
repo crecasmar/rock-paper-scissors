@@ -1,0 +1,5 @@
+@reference "@/index.css";
+
+.layout__content {
+  @apply flex grow flex-col;
+}

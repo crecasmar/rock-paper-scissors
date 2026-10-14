@@ -1,0 +1,24 @@
+@reference "@/index.css";
+
+.reload-toast {
+  @apply fixed inset-x-4 bottom-4 z-50 flex flex-col gap-3 rounded-lg border border-border bg-surface-strong p-4 text-left shadow-lg;
+  @apply sm:left-auto sm:max-w-sm;
+}
+
+.reload-toast__message {
+  @apply text-heading;
+}
+
+.reload-toast__actions {
+  @apply flex justify-end gap-2;
+}
+
+.reload-toast__button {
+  @apply cursor-pointer rounded-md border border-border px-3 py-1.5 font-semibold;
+  @apply hover:border-accent;
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+}
+
+.reload-toast__button--primary {
+  @apply border-accent bg-accent text-white;
+}

@@ -1,0 +1,15 @@
+@reference "@/index.css";
+
+@layer components {
+  .spinner {
+    @apply size-5 shrink-0 animate-spin motion-reduce:animate-none;
+  }
+
+  .spinner__track {
+    @apply opacity-25;
+  }
+
+  .spinner__head {
+    @apply opacity-75;
+  }
+}

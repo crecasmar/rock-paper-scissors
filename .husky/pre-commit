@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Skip hooks in CI or production environments
+if [ "$NODE_ENV" = "production" ] || [ "$CI" = "true" ]; then
+  exit 0
+fi
+
+# Run validations before commit
+npm run pre-commit

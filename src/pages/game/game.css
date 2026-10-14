@@ -1,0 +1,92 @@
+@reference "@/index.css";
+
+.game-page {
+  @apply flex grow flex-col items-center justify-start gap-8 px-4 pt-16 pb-8 sm:pt-24;
+}
+
+.game-page__score {
+  @apply text-2xl font-semibold text-heading;
+}
+
+.game-page__actions {
+  @apply flex flex-row items-center justify-center gap-6 sm:gap-10;
+}
+
+.game-page__control {
+  --choice-width: 6rem;
+  --choice-gap: 3rem;
+  --choice-distance: calc(var(--choice-width) + var(--choice-gap));
+
+  @apply flex flex-row items-start justify-center gap-(--choice-gap);
+}
+
+.game-page__choice {
+  @apply inline-flex w-(--choice-width) flex-col items-center gap-1;
+}
+
+.game-page__choice-title {
+  @apply font-semibold text-heading;
+}
+
+.game-page__choice-icon {
+  @apply relative inline-block text-4xl leading-tight;
+}
+
+/*
+ * Winner and tie share the same hit: the icon slides towards the other one,
+ * recoils with a small tilt and goes back. Only the travelled distance changes.
+ */
+.game-page__choice-icon_attack-right,
+.game-page__choice-icon_attack-left,
+.game-page__choice-icon_clash-right,
+.game-page__choice-icon_clash-left {
+  @apply animate-[choice-hit_600ms_ease-in-out] motion-reduce:animate-none;
+}
+
+/* Winner: stops right next to the loser's hand */
+.game-page__choice-icon_attack-right,
+.game-page__choice-icon_attack-left {
+  --travel: calc(var(--choice-distance) - 1.1em);
+  @apply z-10;
+}
+
+/* Tie: both icons collide in the middle */
+.game-page__choice-icon_clash-right,
+.game-page__choice-icon_clash-left {
+  --travel: calc(var(--choice-distance) / 2 - 0.55em);
+}
+
+.game-page__choice-icon_attack-right,
+.game-page__choice-icon_clash-right {
+  --direction: 1;
+}
+
+.game-page__choice-icon_attack-left,
+.game-page__choice-icon_clash-left {
+  --direction: -1;
+}
+
+@keyframes choice-hit {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(calc(var(--direction) * var(--travel)));
+  }
+  55% {
+    transform: translateX(calc(var(--direction) * (var(--travel) - 0.45em)));
+  }
+}
+
+.game-page__choice-name {
+  @apply text-sm;
+}
+
+.game-page__spinner {
+  @apply my-2 size-8 text-accent;
+}
+
+.game-page__result {
+  @apply min-h-8 text-2xl font-bold text-accent;
+}

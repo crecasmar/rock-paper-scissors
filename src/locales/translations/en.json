@@ -1,0 +1,33 @@
+{
+  "app-name": "Rock Paper Scissors",
+
+  "components.nav-bar.label": "Main navigation",
+  "components.nav-bar.greeting": "Hello {name}",
+  "components.nav-bar.logout": "Log out",
+
+  "components.reload-toast.offline-ready": "The game is ready to play offline!",
+  "components.reload-toast.new-version": "A new version of the game is available. Do you want to update now?",
+  "components.reload-toast.update": "Update",
+  "components.reload-toast.later": "Later",
+  "components.reload-toast.close": "Close",
+
+  "game.moves.rock": "Rock",
+  "game.moves.paper": "Paper",
+  "game.moves.scissors": "Scissors",
+  "game.results.win": "You won!",
+  "game.results.lose": "You lost!",
+  "game.results.tie": "Tie!",
+
+  "pages.home.title": "Create new player",
+  "pages.home.name-label": "Name",
+  "pages.home.name-hint": "Name must be between {minValue} and {maxValue} characters: letters, numbers, spaces or hyphens",
+  "pages.home.join": "Join",
+
+  "pages.game.score": "Score: {score}",
+  "pages.game.you": "You:",
+  "pages.game.bot": "Bot:",
+  "pages.game.bot-thinking": "The bot is choosing its move",
+
+  "pages.not-found.title": "Page not found",
+  "pages.not-found.back": "Go back"
+}
