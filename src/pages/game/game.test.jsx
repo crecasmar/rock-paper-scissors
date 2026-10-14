@@ -153,6 +153,66 @@ describe("GamePage", () => {
       }
     );
 
+    describe("icon animation", () => {
+      const getIcon = (title, icon) => within(getChoice(title)).getByText(icon);
+
+      test("does not animate while the bot is thinking", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(getMoveButton(PAPER));
+
+        expect(getIcon(YOU, "🖐️")).toHaveClass("game-page__choice-icon", {
+          exact: true,
+        });
+      });
+
+      test("the player's icon attacks the bot when the player wins", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(getMoveButton(PAPER));
+        waitForBot();
+
+        expect(getIcon(YOU, "🖐️")).toHaveClass(
+          "game-page__choice-icon--attack-right"
+        );
+        expect(getIcon(BOT, "✊")).toHaveClass("game-page__choice-icon", {
+          exact: true,
+        });
+      });
+
+      test("the bot's icon attacks the player when the bot wins", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(getMoveButton(SCISSORS));
+        waitForBot();
+
+        expect(getIcon(YOU, "✌️")).toHaveClass("game-page__choice-icon", {
+          exact: true,
+        });
+        expect(getIcon(BOT, "✊")).toHaveClass(
+          "game-page__choice-icon--attack-left"
+        );
+      });
+
+      test("both icons clash in the middle on a tie", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(getMoveButton(ROCK));
+        waitForBot();
+
+        expect(getIcon(YOU, "✊")).toHaveClass(
+          "game-page__choice-icon--clash-right"
+        );
+        expect(getIcon(BOT, "✊")).toHaveClass(
+          "game-page__choice-icon--clash-left"
+        );
+      });
+    });
+
     test("the bot does not repeat its move in the next round", async () => {
       const user = setupUser();
       renderGame();

@@ -9,6 +9,7 @@ import {
 
 /**
  * @typedef {Object} Round
+ * @property {number} id - increases with every round
  * @property {string} playerMove
  * @property {string | null} botMove - null while the bot is thinking
  * @property {string | null} result - null until the round is resolved
@@ -25,6 +26,7 @@ const useGameRound = ({ onWin } = {}) => {
   const [round, setRound] = useState(null);
   const lastBotMoveRef = useRef(null);
   const timeoutRef = useRef(null);
+  const roundIdRef = useRef(0);
   const onWinRef = useRef(onWin);
 
   useEffect(() => {
@@ -36,7 +38,9 @@ const useGameRound = ({ onWin } = {}) => {
   const play = useCallback((playerMove) => {
     if (timeoutRef.current) return;
 
-    setRound({ playerMove, botMove: null, result: null });
+    roundIdRef.current += 1;
+    const id = roundIdRef.current;
+    setRound({ id, playerMove, botMove: null, result: null });
 
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null;
@@ -45,7 +49,7 @@ const useGameRound = ({ onWin } = {}) => {
       lastBotMoveRef.current = botMove;
       const result = getRoundResult(playerMove, botMove);
 
-      setRound({ playerMove, botMove, result });
+      setRound({ id, playerMove, botMove, result });
       if (result === RESULTS.WIN) onWinRef.current?.();
     }, BOT_THINKING_DELAY_MS);
   }, []);

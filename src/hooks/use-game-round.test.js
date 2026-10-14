@@ -31,6 +31,7 @@ describe("useGameRound", () => {
     act(() => result.current.play(MOVES.PAPER));
 
     expect(result.current.round).toEqual({
+      id: 1,
       playerMove: MOVES.PAPER,
       botMove: null,
       result: null,
@@ -59,6 +60,7 @@ describe("useGameRound", () => {
     waitForBot();
 
     expect(result.current.round).toEqual({
+      id: 1,
       playerMove: MOVES.PAPER,
       botMove: MOVES.ROCK,
       result: RESULTS.WIN,
@@ -109,6 +111,16 @@ describe("useGameRound", () => {
       MOVES.ROCK,
       MOVES.PAPER,
     ]);
+  });
+
+  test("gives every round a new id", () => {
+    const { result } = renderHook(() => useGameRound());
+
+    act(() => result.current.play(MOVES.ROCK));
+    waitForBot();
+    act(() => result.current.play(MOVES.ROCK));
+
+    expect(result.current.round.id).toBe(2);
   });
 
   test("drops the pending bot move on unmount", () => {
