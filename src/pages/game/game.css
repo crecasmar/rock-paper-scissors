@@ -1,0 +1,41 @@
+@reference "@/index.css";
+
+.game-page {
+  @apply flex grow flex-col items-center justify-center gap-8 px-4 py-8;
+}
+
+.game-page__score {
+  @apply text-2xl font-semibold text-heading;
+}
+
+.game-page__actions {
+  @apply flex flex-row items-center justify-center gap-6 sm:gap-10;
+}
+
+.game-page__control {
+  @apply flex flex-row items-start justify-center gap-12;
+}
+
+.game-page__choice {
+  @apply inline-flex w-24 flex-col items-center gap-1;
+}
+
+.game-page__choice-title {
+  @apply font-semibold text-heading;
+}
+
+.game-page__choice-icon {
+  @apply text-4xl leading-tight;
+}
+
+.game-page__choice-name {
+  @apply text-sm;
+}
+
+.game-page__spinner {
+  @apply my-2 size-8 animate-spin text-accent motion-reduce:animate-none;
+}
+
+.game-page__result {
+  @apply min-h-8 text-2xl font-bold text-accent;
+}

@@ -12,7 +12,11 @@ import {
 
 import HomePage from "./home";
 import { useAuth } from "@/store/game-store";
-import { PLAYER_NAME_ERROR_DELAY_MS } from "@/utils/validation";
+import {
+  PLAYER_NAME_ERROR_DELAY_MS,
+  PLAYER_NAME_MAX_LENGTH,
+  PLAYER_NAME_MIN_LENGTH,
+} from "@/utils/validation";
 
 const STORAGE_KEY = "rock-paper-scissors-storage";
 
@@ -36,7 +40,7 @@ const getJoinButton = () =>
   screen.getByRole("button", { name: "PAGES.HOME.JOIN" });
 const getNameHint = () => screen.getByRole("alert");
 
-const NAME_HINT = "pages.home.name-hint";
+const NAME_HINT = `pages.home.name-hint ${PLAYER_NAME_MIN_LENGTH} ${PLAYER_NAME_MAX_LENGTH}`;
 
 describe("HomePage", () => {
   beforeEach(() => {

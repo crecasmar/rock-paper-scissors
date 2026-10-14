@@ -8,11 +8,17 @@ const DEFAULT_LOCALE = "en";
 
 /**
  * Locale that renders every message as its own id, so tests can query by id.
+ * Placeholder values are appended after the id, e.g. "pages.game.score 3".
  */
 export const KEYS_LOCALE = "keys";
 
+const PLACEHOLDER_PATTERN = /\{(\w+)\}/g;
+
 const keyMessages = Object.fromEntries(
-  Object.keys(supportedLocales[DEFAULT_LOCALE]).map((id) => [id, id])
+  Object.entries(supportedLocales[DEFAULT_LOCALE]).map(([id, message]) => [
+    id,
+    [id, ...(message.match(PLACEHOLDER_PATTERN) ?? [])].join(" "),
+  ])
 );
 
 const getMessages = (locale) =>

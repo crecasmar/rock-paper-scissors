@@ -1,10 +1,21 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { act, renderHook } from "@testing-library/react";
-import { render, screen } from "./utils/test-utils";
+import { KEYS_LOCALE, render, screen } from "./utils/test-utils";
 
 import { AppRoutes } from "./routes";
 import { useAuth } from "./store/game-store";
+
+const renderRoutes = (Routes, initialPath) =>
+  render(<Routes />, { initialPath, locale: KEYS_LOCALE });
+
+const registerPlayer = async (user, name) => {
+  await user.type(
+    screen.getByRole("textbox", { name: "pages.home.name-label" }),
+    name
+  );
+  await user.click(screen.getByRole("button", { name: "PAGES.HOME.JOIN" }));
+};
 
 describe("AppRoutes", () => {
   beforeEach(() => {
@@ -14,39 +25,38 @@ describe("AppRoutes", () => {
   });
 
   test("redirects / to the home page", () => {
-    render(<AppRoutes />, { initialPath: "/" });
+    renderRoutes(AppRoutes, "/");
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
   });
 
   test("renders the home page when the path is /home", () => {
-    render(<AppRoutes />, { initialPath: "/home" });
+    renderRoutes(AppRoutes, "/home");
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
   });
 
   test.each(["/unknown", "/home/extra", "/some/deep/path"])(
     "shows the not found page for the unknown route %s",
     (path) => {
-      render(<AppRoutes />, { initialPath: path });
+      renderRoutes(AppRoutes, path);
       expect(screen.getByTestId("not-found-page")).toBeInTheDocument();
     }
   );
 
   test("redirects /game to home when no player is registered", () => {
-    render(<AppRoutes />, { initialPath: "/game" });
+    renderRoutes(AppRoutes, "/game");
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
   });
 
   test("registering a player from home opens the game page", async () => {
     const user = userEvent.setup();
-    render(<AppRoutes />, { initialPath: "/" });
+    renderRoutes(AppRoutes, "/");
 
-    await user.type(screen.getByRole("textbox", { name: "Name" }), "Maria");
-    await user.click(screen.getByRole("button", { name: "JOIN" }));
+    await registerPlayer(user, "Maria");
 
     expect(screen.getByTestId("game-page")).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 1, name: "Hi, Maria" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("banner")).toHaveTextContent(
+      "components.nav-bar.greeting Maria"
+    );
   });
 
   describe("after the app is closed and reopened", () => {
@@ -57,17 +67,16 @@ describe("AppRoutes", () => {
 
     test("restores the registered player and opens the game", async () => {
       const user = userEvent.setup();
-      const { unmount } = render(<AppRoutes />, { initialPath: "/" });
-      await user.type(screen.getByRole("textbox", { name: "Name" }), "Maria");
-      await user.click(screen.getByRole("button", { name: "JOIN" }));
+      const { unmount } = renderRoutes(AppRoutes, "/");
+      await registerPlayer(user, "Maria");
       unmount();
 
       const { AppRoutes: ReopenedRoutes } = await reopenApp();
-      render(<ReopenedRoutes />, { initialPath: "/" });
+      renderRoutes(ReopenedRoutes, "/");
 
-      expect(
-        screen.getByRole("heading", { level: 1, name: "Hi, Maria" })
-      ).toBeInTheDocument();
+      expect(screen.getByRole("banner")).toHaveTextContent(
+        "components.nav-bar.greeting Maria"
+      );
     });
 
     test("restores every player's data from storage", async () => {
