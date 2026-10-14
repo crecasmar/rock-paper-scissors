@@ -1,0 +1,29 @@
+src/components/index.js
+  s_13b701c3bae1df::t_08cc49db58c3dd 4
+src/pages/game/game.css
+  s_13b701c3bae1df::t_e7643c33078281 87
+src/pages/game/game.jsx
+  s_13b701c3bae1df::t_5a87ac61dae015 4,22,45
+src/pages/home/home.css
+  s_13b701c3bae1df::t_6cc9ed094ec3ba 4,34
+src/components/spinner/spinner.jsx
+  s_13b701c3bae1df::t_e9dedc7739bb15 1-32
+src/components/spinner/spinner.test.jsx
+  s_13b701c3bae1df::t_5eb064a62a3ba8 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cf74415e76ccfba4bf908f0899a3659689eb733e",
+  "prompts": {},
+  "sessions": {
+    "s_13b701c3bae1df": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2c8721ef-ba7e-47e3-863a-004123db169b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
