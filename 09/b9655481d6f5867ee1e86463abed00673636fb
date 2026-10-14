@@ -1,0 +1,49 @@
+src/components/index.js
+  s_13b701c3bae1df::t_b3ff38ca519578 2-3
+src/components/layout/layout.jsx
+  s_13b701c3bae1df::t_acb05bd94c1e9e 1-37
+src/components/layout/layout.test.jsx
+  s_13b701c3bae1df::t_25b4558270c564 1-92
+src/components/nav-bar/nav-bar.css
+  s_13b701c3bae1df::t_e416a408bad449 8,11
+src/components/nav-bar/nav-bar.jsx
+  s_13b701c3bae1df::t_90f50af61aaa9e 1,7,9-10,12-37
+src/locales/translations/en.json
+  s_13b701c3bae1df::t_cf6a6e8d3f3e78 4,26
+src/locales/translations/es.json
+  s_13b701c3bae1df::t_8e50ae83927796 4,26
+src/main.jsx
+  s_13b701c3bae1df::t_1d4e3b9f0bddcd 5-6
+src/pages/game/game.css
+  s_13b701c3bae1df::t_da845ea035b6da 4
+src/pages/game/game.jsx
+  s_13b701c3bae1df::t_4f22cade1b78f2 4,79,89-95,97-104,106-107,109-116,118-124,126-133
+src/pages/game/game.test.jsx
+  s_13b701c3bae1df::t_3c3e3a090655f1 79,175,193,205,208,240,243-244
+src/pages/index.js
+  s_13b701c3bae1df::t_22aa3282e36706 1-3
+src/routes.jsx
+  s_13b701c3bae1df::t_33cc056c6c7035 3-5,13-16,18-19,21-23
+src/routes.test.jsx
+  s_13b701c3bae1df::t_976f8a624a694d 62-102
+src/components/layout/layout.css
+  s_13b701c3bae1df::t_5245e519ea432e 1-5
+src/components/nav-bar/nav-bar.test.jsx
+  s_13b701c3bae1df::t_11b71cf7944c98 8-11,14,17,21-23,25-43,45-48,52-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "09b9655481d6f5867ee1e86463abed00673636fb",
+  "prompts": {},
+  "sessions": {
+    "s_13b701c3bae1df": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2c8721ef-ba7e-47e3-863a-004123db169b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
