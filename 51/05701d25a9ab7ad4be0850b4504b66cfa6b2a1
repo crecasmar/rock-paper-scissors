@@ -1,0 +1,29 @@
+eslint.config.js
+  s_94c82049d11194::t_19f140718b9e46 8
+jsconfig.json
+  s_94c82049d11194::t_69416097e7cda0 1-16
+src/routes.jsx
+  s_94c82049d11194::t_0c5015f4f46597 4,13-16
+src/utils/validation.js
+  s_94c82049d11194::t_dfbb80c654e450 1-19
+vite.config.js
+  s_94c82049d11194::t_a1f8bdef54094a 3,5-8,14,61-71
+.claude/launch.json
+  s_94c82049d11194::t_3cb00ea320d752 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5105701d25a9ab7ad4be0850b4504b66cfa6b2a1",
+  "prompts": {},
+  "sessions": {
+    "s_94c82049d11194": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2b4168b1-f388-4a0a-8896-2a2e1e87165e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maria Crespo <mariaccastr@ext.inditex.com>"
+    }
+  }
+}
