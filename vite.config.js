@@ -2,6 +2,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import { configDefaults } from "vitest/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -47,6 +48,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
+    // e2e/ holds the Playwright tests
+    exclude: [...configDefaults.exclude, "e2e/**"],
     coverage: {
       provider: "istanbul",
       reporter: ["text", "html", "lcov"],
