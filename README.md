@@ -60,7 +60,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 - **Puntuación persistente**: cada victoria suma un punto. Las puntuaciones de todos los jugadores se guardan, así que si vuelves con el mismo nombre recuperas tu marcador.
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.
 - **Multidioma**: español e inglés. El idioma se elige automáticamente según el navegador (inglés por defecto).
-- **PWA instalable y offline**: un aviso indica cuándo el juego está listo para usarse sin conexión y cuándo hay una nueva versión disponible.
+- **PWA instalable y offline**: las nuevas versiones se descargan en segundo plano y se usan en la siguiente visita, sin avisos ni recargas a mitad de partida.
 
 ---
 
@@ -96,13 +96,13 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 
 ```
 src/
-├── components/   # Componentes reutilizables (botones, barra de navegación, layout, spinner, aviso de PWA)
+├── components/   # Componentes reutilizables (botones, barra de navegación, layout, spinner)
 ├── hooks/        # Hooks propios (lógica de cada ronda, valor con retardo)
 ├── locales/      # Traducciones en español e inglés
 ├── pages/        # Páginas: home, game y not-found
 ├── store/        # Estado global con Zustand
 ├── utils/        # Reglas del juego y validaciones
-├── app.jsx       # Proveedores (idioma, router) y aviso de PWA
+├── app.jsx       # Proveedores (idioma, router)
 └── routes.jsx    # Definición de rutas
 ```
 

@@ -3,6 +3,7 @@ import { act, renderHook } from "@testing-library/react";
 
 import useGameRound from "./use-game-round";
 import { BOT_THINKING_DELAY_MS, MOVES, RESULTS } from "@/utils/game-rules";
+import { LOSE_VIBRATION_MS } from "@/utils/vibration";
 
 const waitForBot = () =>
   act(() => vi.advanceTimersByTime(BOT_THINKING_DELAY_MS));
@@ -16,6 +17,7 @@ describe("useGameRound", () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   test("starts without a round", () => {
@@ -80,6 +82,43 @@ describe("useGameRound", () => {
 
     expect(result.current.round.result).toBe(outcome);
     expect(onWin).not.toHaveBeenCalled();
+  });
+
+  test("vibrates when the bot wins the round", () => {
+    const vibrate = vi.fn();
+    vi.stubGlobal("navigator", { vibrate });
+    const { result } = renderHook(() => useGameRound());
+
+    act(() => result.current.play(MOVES.SCISSORS));
+    waitForBot();
+
+    expect(result.current.round.result).toBe(RESULTS.LOSE);
+    expect(vibrate).toHaveBeenCalledExactlyOnceWith(LOSE_VIBRATION_MS);
+  });
+
+  test.each([
+    [MOVES.PAPER, RESULTS.WIN],
+    [MOVES.ROCK, RESULTS.TIE],
+  ])("does not vibrate when playing %s results in %s", (move, outcome) => {
+    const vibrate = vi.fn();
+    vi.stubGlobal("navigator", { vibrate });
+    const { result } = renderHook(() => useGameRound());
+
+    act(() => result.current.play(move));
+    waitForBot();
+
+    expect(result.current.round.result).toBe(outcome);
+    expect(vibrate).not.toHaveBeenCalled();
+  });
+
+  test("still resolves a lost round when vibration is not supported", () => {
+    vi.stubGlobal("navigator", {});
+    const { result } = renderHook(() => useGameRound());
+
+    act(() => result.current.play(MOVES.SCISSORS));
+    waitForBot();
+
+    expect(result.current.round.result).toBe(RESULTS.LOSE);
   });
 
   test("ignores new moves until the round is resolved", () => {
