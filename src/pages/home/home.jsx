@@ -46,6 +46,14 @@ const HomePage = () => {
 
   return (
     <main data-testid="home-page" className="home-page">
+      <img
+        src={`${import.meta.env.BASE_URL}rock-paper-scissors.svg`}
+        alt={formatMessage({ id: "app-name" })}
+        className="home-page__logo"
+        width={500}
+        height={500}
+      />
+
       <GameModeSelector />
 
       <h1>

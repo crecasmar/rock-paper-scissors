@@ -141,6 +141,31 @@ describe("game-store", () => {
       expect(result.current.gameMode).toBe(GAME_MODES.EXPANDED);
     });
 
+    test("setGameMode starts the score of the mode for the logged in player", () => {
+      const { result } = renderStore();
+
+      act(() => result.current.auth.login("maria"));
+      act(() => result.current.mode.setGameMode(GAME_MODES.EXPANDED));
+
+      expect(result.current.mode.gameMode).toBe(GAME_MODES.EXPANDED);
+      expect(result.current.stats.players.maria).toEqual({
+        classicScore: 0,
+        expandedScore: 0,
+      });
+    });
+
+    test("setGameMode keeps the score the player already has in the mode", () => {
+      const { result } = renderStore();
+
+      act(() => result.current.mode.setGameMode(GAME_MODES.EXPANDED));
+      act(() => result.current.auth.login("maria"));
+      act(() => result.current.stats.recordResult(RESULTS.WIN));
+      act(() => result.current.mode.setGameMode(GAME_MODES.CLASSIC));
+      act(() => result.current.mode.setGameMode(GAME_MODES.EXPANDED));
+
+      expect(result.current.stats.currentUserScore).toBe(1);
+    });
+
     test("logout goes back to classic mode", () => {
       const { result } = renderStore();
 

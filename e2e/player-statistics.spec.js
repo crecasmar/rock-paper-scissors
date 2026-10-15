@@ -30,7 +30,7 @@ test("see the statistics of the player's rounds", async ({ page }) => {
   await expect(page).toHaveURL(/\/game$/);
 
   const toggle = page.getByRole("button", { name: "My statistics" });
-  const summary = page.getByRole("region", { name: "Classic mode" });
+  const summary = page.getByRole("region", { name: "My statistics" });
 
   // The summary is hidden until the player asks for it
   await expect(toggle).toHaveAttribute("aria-expanded", "false");

@@ -4,19 +4,19 @@ import { FormattedMessage } from "react-intl";
 import { ChevronDownIcon } from "@/assets/icons";
 import Button from "@/components/button/button";
 import { BUTTON_VARIANTS } from "@/components/button/button-variants";
-import { GAME_MODE_MESSAGES } from "@/utils/game-rules";
 
 import "./player-stats.css";
 
 /**
  * Button that shows and hides a summary of the player's rounds
- * in the selected game mode.
- * @param {{ stats: import("@/store/game-store").PlayerStats, mode: string, className?: string }} props
+ * in the selected game mode. The mode is already the title of the page,
+ * so the summary is named after the button.
+ * @param {{ stats: import("@/store/game-store").PlayerStats, className?: string }} props
  */
-const PlayerStats = ({ stats, mode, className }) => {
+const PlayerStats = ({ stats, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
-  const titleId = useId();
+  const toggleId = useId();
 
   const items = [
     ["played", stats.wins + stats.losses + stats.ties],
@@ -32,6 +32,7 @@ const PlayerStats = ({ stats, mode, className }) => {
       <Button
         variant={BUTTON_VARIANTS.SECONDARY}
         aria-expanded={isOpen}
+        id={toggleId}
         aria-controls={panelId}
         className="player-stats__toggle"
         onClick={() => setIsOpen((open) => !open)}
@@ -43,18 +44,9 @@ const PlayerStats = ({ stats, mode, className }) => {
       <section
         id={panelId}
         className="player-stats__panel"
-        aria-labelledby={titleId}
+        aria-labelledby={toggleId}
         hidden={!isOpen}
       >
-        <h2 id={titleId} className="player-stats__title">
-          <FormattedMessage
-            id="components.player-stats.title"
-            values={{
-              mode: <FormattedMessage {...GAME_MODE_MESSAGES[mode]} />,
-            }}
-          />
-        </h2>
-
         <dl className="player-stats__list">
           {items.map(([key, value]) => (
             <div key={key} className="player-stats__item">

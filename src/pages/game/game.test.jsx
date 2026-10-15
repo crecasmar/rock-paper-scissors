@@ -80,6 +80,64 @@ describe("GamePage", () => {
       vi.restoreAllMocks();
     });
 
+    test("shows the game mode above the score", () => {
+      renderGame();
+
+      const title = screen.getByRole("heading", {
+        level: 1,
+        name: "game.modes.title game.modes.classic",
+      });
+      expect(title.compareDocumentPosition(screen.getByText(score(0)))).toBe(
+        Node.DOCUMENT_POSITION_FOLLOWING
+      );
+      expect(
+        screen.getByRole("button", {
+          name: "game.rules.show game.modes.classic",
+        })
+      ).toBeInTheDocument();
+    });
+
+    describe("changing the game mode", () => {
+      const setGameMode = (mode) => {
+        const { result } = renderHook(() => useGameMode());
+        act(() => result.current.setGameMode(mode));
+      };
+
+      test("shows the board of the new mode without the last round", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(getMoveButton(PAPER));
+        waitForBot();
+        setGameMode(GAME_MODES.EXPANDED);
+
+        expect(
+          screen.getByRole("heading", {
+            level: 1,
+            name: "game.modes.title game.modes.expanded",
+          })
+        ).toBeInTheDocument();
+        expect(getMoveButton(SPOCK)).toBeEnabled();
+        expect(screen.getByText(score(0))).toBeInTheDocument();
+        expect(screen.queryByRole("status")).not.toBeInTheDocument();
+      });
+
+      test("drops the round in progress", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(getMoveButton(PAPER));
+        setGameMode(GAME_MODES.EXPANDED);
+        waitForBot();
+
+        expect(screen.queryByRole("status")).not.toBeInTheDocument();
+        const { result } = renderHook(() => useGameStats());
+        expect(result.current.players).toEqual({
+          Maria: { classicScore: 0, expandedScore: 0 },
+        });
+      });
+    });
+
     test("shows the score", () => {
       renderGame();
 
@@ -282,7 +340,7 @@ describe("GamePage", () => {
         );
         expect(
           screen.getByRole("region", {
-            name: "components.player-stats.title game.modes.classic",
+            name: STATS,
           })
         ).toBeVisible();
       });

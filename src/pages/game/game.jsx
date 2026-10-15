@@ -1,7 +1,12 @@
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { ActionButton, PlayerStats, Spinner } from "@/components";
+import {
+  ActionButton,
+  GameModeTitle,
+  PlayerStats,
+  Spinner,
+} from "@/components";
 import useGameRound from "@/hooks/use-game-round";
 import { useAuth, useGameMode, useGameStats } from "@/store/game-store";
 import {
@@ -53,37 +58,34 @@ const PlayerChoice = ({ title, move, animation, thinkingLabel }) => (
 );
 
 /**
- * Game page. Only reachable once a player has been registered.
+ * Board of the game mode being played: score, statistics, moves and the
+ * last round.
+ * @param {{ mode: string }} props - One of GAME_MODES
  */
-const GamePage = () => {
+const GameBoard = ({ mode }) => {
   const { formatMessage } = useIntl();
-  const { currentUser } = useAuth();
-  const { gameMode } = useGameMode();
   const { currentUserScore, currentUserStats, recordResult } = useGameStats();
   const { round, isThinking, play } = useGameRound({
     onResult: recordResult,
-    mode: gameMode,
+    mode,
   });
   const animations = round?.result ? ICON_ANIMATIONS[round.result] : {};
 
-  if (!currentUser) {
-    return <Navigate to="/home" replace />;
-  }
-
   return (
-    <main data-testid="game-page" className="game-page">
+    <>
       <div className="game-page__score-section">
+        <GameModeTitle mode={mode} />
         <p className="game-page__score" aria-live="polite">
           <FormattedMessage
             id="pages.game.score"
             values={{ score: currentUserScore }}
           />
         </p>
-        <PlayerStats stats={currentUserStats} mode={gameMode} />
+        <PlayerStats stats={currentUserStats} />
       </div>
 
       <div className="game-page__actions">
-        {GAME_MODE_MOVES[gameMode].map((move) => (
+        {GAME_MODE_MOVES[mode].map((move) => (
           <ActionButton
             key={move}
             icon={MOVE_DETAILS[move].icon}
@@ -118,6 +120,24 @@ const GamePage = () => {
           </output>
         </>
       )}
+    </>
+  );
+};
+
+/**
+ * Game page. Only reachable once a player has been registered.
+ */
+const GamePage = () => {
+  const { currentUser } = useAuth();
+  const { gameMode } = useGameMode();
+
+  if (!currentUser) {
+    return <Navigate to="/home" replace />;
+  }
+
+  return (
+    <main data-testid="game-page" className="game-page">
+      <GameBoard key={gameMode} mode={gameMode} />
     </main>
   );
 };
