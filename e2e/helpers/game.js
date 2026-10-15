@@ -1,6 +1,8 @@
 /** localStorage key where the game store is persisted */
 const STORAGE_KEY = "rock-paper-scissors-storage";
-const STORAGE_VERSION = 1;
+const STORAGE_VERSION = 2;
+
+import { expect } from "@playwright/test";
 
 export const RESULT_TEXTS = Object.freeze({
   win: "You won!",
@@ -91,3 +93,40 @@ export const seedPlayers = (page, players) =>
     },
     { key: STORAGE_KEY, version: STORAGE_VERSION, players }
   );
+
+/** Label of every statistic in the summary, by the name used in the tests */
+const STAT_LABELS = Object.freeze({
+  played: "Games played",
+  won: "Won",
+  lost: "Lost",
+  drawn: "Drawn",
+  longestStreak: "Longest winning streak",
+  currentStreak: "Current winning streak",
+});
+
+/**
+ * Opens the player's statistics below the score.
+ * @param {import("@playwright/test").Page} page
+ */
+export const openStatistics = async (page) => {
+  const toggle = page.getByRole("button", { name: "My statistics" });
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+};
+
+/**
+ * Checks every value of the opened statistics summary.
+ * @param {import("@playwright/test").Page} page
+ * @param {Record<keyof typeof STAT_LABELS, number>} stats
+ */
+export const expectStatistics = async (page, stats) => {
+  for (const [key, label] of Object.entries(STAT_LABELS)) {
+    await expect(
+      page
+        .locator(".player-stats__item")
+        .filter({ has: page.getByText(label, { exact: true }) })
+        .locator("dd"),
+      label
+    ).toHaveText(String(stats[key]));
+  }
+};

@@ -5,7 +5,16 @@
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
-  "components.game-mode-selector.title": "Choose your mode",
+  "components.game-mode-selector.title": "Choose your game mode",
+
+  "components.player-stats.toggle": "My statistics",
+  "components.player-stats.title": "{mode} mode",
+  "components.player-stats.played": "Games played",
+  "components.player-stats.wins": "Won",
+  "components.player-stats.losses": "Lost",
+  "components.player-stats.ties": "Drawn",
+  "components.player-stats.longest-streak": "Longest winning streak",
+  "components.player-stats.current-streak": "Current winning streak",
 
   "components.ranking-link.see": "See ranking",
   "components.ranking-link.back": "Go back",

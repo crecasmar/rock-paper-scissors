@@ -200,7 +200,7 @@ describe("AppRoutes", () => {
       const { useGameStats } = await import("./store/game-store");
       const { result } = renderHook(() => useGameStats());
 
-      expect(result.current.players).toEqual({
+      expect(result.current.players).toMatchObject({
         Maria: { classicScore: 3 },
         Juan: { classicScore: 5, expandedScore: 2 },
       });

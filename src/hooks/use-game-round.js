@@ -21,20 +21,20 @@ import { LOSE_VIBRATION_MS, vibrate } from "@/utils/vibration";
  * Runs rock-paper-scissors rounds of the given game mode against the bot.
  * The bot answers after BOT_THINKING_DELAY_MS, and new moves are ignored
  * until the current round is resolved.
- * @param {{ onWin?: () => void, mode?: string }} [options]
+ * @param {{ onResult?: (result: string) => void, mode?: string }} [options]
  * @returns {{ round: Round | null, isThinking: boolean, play: (move: string) => void }}
  */
-const useGameRound = ({ onWin, mode = DEFAULT_GAME_MODE } = {}) => {
+const useGameRound = ({ onResult, mode = DEFAULT_GAME_MODE } = {}) => {
   const [round, setRound] = useState(null);
   const lastBotMoveRef = useRef(null);
   const timeoutRef = useRef(null);
   const roundIdRef = useRef(0);
-  const onWinRef = useRef(onWin);
+  const onResultRef = useRef(onResult);
   const modeRef = useRef(mode);
 
   useEffect(() => {
-    onWinRef.current = onWin;
-  }, [onWin]);
+    onResultRef.current = onResult;
+  }, [onResult]);
 
   useEffect(() => {
     modeRef.current = mode;
@@ -61,7 +61,7 @@ const useGameRound = ({ onWin, mode = DEFAULT_GAME_MODE } = {}) => {
       const result = getRoundResult(playerMove, botMove);
 
       setRound({ id, playerMove, botMove, result });
-      if (result === RESULTS.WIN) onWinRef.current?.();
+      onResultRef.current?.(result);
       if (result === RESULTS.LOSE) vibrate(LOSE_VIBRATION_MS);
     }, BOT_THINKING_DELAY_MS);
   }, []);

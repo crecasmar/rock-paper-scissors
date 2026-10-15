@@ -1,6 +1,7 @@
 import { useLocation } from "react-router";
 import { FormattedMessage } from "react-intl";
 
+import { BackIcon, TrophyIcon } from "@/assets/icons";
 import Button from "@/components/button/button";
 import { BUTTON_VARIANTS } from "@/components/button/button-variants";
 
@@ -20,7 +21,7 @@ const RankingLink = ({ className }) => {
         to={state?.from ?? "/home"}
         className={className}
       >
-        <span aria-hidden="true">↩ </span>
+        <BackIcon className="button__icon" />
         <FormattedMessage id="components.ranking-link.back" />
       </Button>
     );
@@ -33,6 +34,7 @@ const RankingLink = ({ className }) => {
       state={{ from: pathname }}
       className={className}
     >
+      <TrophyIcon className="button__icon" />
       <FormattedMessage id="components.ranking-link.see" />
     </Button>
   );

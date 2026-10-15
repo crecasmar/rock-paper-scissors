@@ -59,9 +59,9 @@ describe("useGameRound", () => {
     expect(result.current.isThinking).toBe(false);
   });
 
-  test("resolves the round and calls onWin when the player wins", () => {
-    const onWin = vi.fn();
-    const { result } = renderHook(() => useGameRound({ onWin }));
+  test("resolves the round and reports a win when the player wins", () => {
+    const onResult = vi.fn();
+    const { result } = renderHook(() => useGameRound({ onResult }));
 
     act(() => result.current.play(MOVES.PAPER));
     waitForBot();
@@ -72,21 +72,21 @@ describe("useGameRound", () => {
       botMove: MOVES.ROCK,
       result: RESULTS.WIN,
     });
-    expect(onWin).toHaveBeenCalledTimes(1);
+    expect(onResult).toHaveBeenCalledExactlyOnceWith(RESULTS.WIN);
   });
 
   test.each([
     [MOVES.ROCK, RESULTS.TIE],
     [MOVES.SCISSORS, RESULTS.LOSE],
-  ])("does not call onWin when playing %s results in %s", (move, outcome) => {
-    const onWin = vi.fn();
-    const { result } = renderHook(() => useGameRound({ onWin }));
+  ])("reports the result when playing %s results in %s", (move, outcome) => {
+    const onResult = vi.fn();
+    const { result } = renderHook(() => useGameRound({ onResult }));
 
     act(() => result.current.play(move));
     waitForBot();
 
     expect(result.current.round.result).toBe(outcome);
-    expect(onWin).not.toHaveBeenCalled();
+    expect(onResult).toHaveBeenCalledExactlyOnceWith(outcome);
   });
 
   test("vibrates when the bot wins the round", () => {
@@ -159,9 +159,9 @@ describe("useGameRound", () => {
 
   test("the bot plays the expanded moves in expanded mode", () => {
     Math.random.mockReturnValue(0.99);
-    const onWin = vi.fn();
+    const onResult = vi.fn();
     const { result } = renderHook(() =>
-      useGameRound({ onWin, mode: GAME_MODES.EXPANDED })
+      useGameRound({ onResult, mode: GAME_MODES.EXPANDED })
     );
 
     act(() => result.current.play(MOVES.LIZARD));
@@ -173,7 +173,7 @@ describe("useGameRound", () => {
       botMove: MOVES.SPOCK,
       result: RESULTS.WIN,
     });
-    expect(onWin).toHaveBeenCalledTimes(1);
+    expect(onResult).toHaveBeenCalledExactlyOnceWith(RESULTS.WIN);
   });
 
   test("the bot only plays classic moves by default", () => {

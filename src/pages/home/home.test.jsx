@@ -210,7 +210,7 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "UNIRSE" })).toBeDisabled();
     expect(
-      screen.getByRole("group", { name: "Elige tu modo" })
+      screen.getByRole("group", { name: "Elige tu modo de juego" })
     ).toBeInTheDocument();
   });
 

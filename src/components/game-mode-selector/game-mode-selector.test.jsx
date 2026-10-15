@@ -90,7 +90,7 @@ describe("GameModeSelector", () => {
   test("renders the Spanish translations", () => {
     renderSelector("es");
 
-    expect(getGroup("Elige tu modo")).toBeInTheDocument();
+    expect(getGroup("Elige tu modo de juego")).toBeInTheDocument();
     expect(getRadio("Clásico")).toBeChecked();
     expect(getRadio("Extendido")).toBeInTheDocument();
   });

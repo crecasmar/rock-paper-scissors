@@ -19,6 +19,12 @@ export const SCORE_KEYS = Object.freeze({
   [GAME_MODES.EXPANDED]: "expandedScore",
 });
 
+/** Player data key where each game mode keeps its statistics */
+export const STATS_KEYS = Object.freeze({
+  [GAME_MODES.CLASSIC]: "classicStats",
+  [GAME_MODES.EXPANDED]: "expandedStats",
+});
+
 export const GAME_MODE_MESSAGES = Object.freeze({
   [GAME_MODES.CLASSIC]: { id: "game.modes.classic" },
   [GAME_MODES.EXPANDED]: { id: "game.modes.expanded" },
