@@ -1,9 +1,12 @@
 {
-  "app-name": "Piedra Papel Tijeras",
+  "app-name": "Piedra, Papel o Tijera",
 
   "components.nav-bar.label": "Navegación principal",
   "components.nav-bar.greeting": "Hola {name}",
   "components.nav-bar.logout": "Cerrar sesión",
+
+  "components.ranking-link.see": "Ver el ranking actual",
+  "components.ranking-link.back": "Volver",
 
   "components.reload-toast.offline-ready": "¡El juego está listo para jugar sin conexión!",
   "components.reload-toast.new-version": "Hay una nueva versión del juego. ¿Quieres actualizar ahora?",
@@ -13,7 +16,7 @@
 
   "game.moves.rock": "Piedra",
   "game.moves.paper": "Papel",
-  "game.moves.scissors": "Tijeras",
+  "game.moves.scissors": "Tijera",
   "game.results.win": "¡Has ganado!",
   "game.results.lose": "¡Has perdido!",
   "game.results.tie": "¡Empate!",
@@ -27,6 +30,11 @@
   "pages.game.you": "Tú:",
   "pages.game.bot": "Bot:",
   "pages.game.bot-thinking": "El bot está eligiendo su jugada",
+
+  "pages.ranking.title": "Ranking",
+  "pages.ranking.empty": "No hay puntuaciones de jugadores registradas para clasificar",
+  "pages.ranking.score": "{score} pts",
+  "pages.ranking.player-label": "Posición {position}: {name}, {score, plural, one {# punto} other {# puntos}}",
 
   "pages.not-found.title": "Página no encontrada",
   "pages.not-found.back": "Volver"

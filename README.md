@@ -1,6 +1,6 @@
-# ✊🖐️✌️ Piedra, Papel o Tijeras
+# ✊🖐️✌️ Piedra, Papel o Tijera
 
-Juego clásico de **Piedra, Papel o Tijeras** contra la máquina, hecho con React y Vite.
+Juego clásico de **Piedra, Papel o Tijera** contra la máquina, hecho con React y Vite.
 
 Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suya. Si ganas, sumarás un punto. Tu puntuación se guarda en el navegador, así que puedes cerrar la página y seguir jugando offline.
 
@@ -55,7 +55,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 ## 🎮 Funcionalidades
 
 - **Registro de jugador**: pantalla inicial para introducir el nombre de tu jugador (siempre que sea válido).
-- **Partida contra el bot**: eliges piedra, papel o tijeras y el bot "piensa" durante 1 segundo antes de responder.
+- **Partida contra el bot**: eliges piedra, papel o tijera y el bot "piensa" durante 1 segundo antes de responder.
 - **Bot impredecible**: el bot nunca repite la misma jugada dos veces seguidas.
 - **Puntuación persistente**: cada victoria suma un punto. Las puntuaciones de todos los jugadores se guardan, así que si vuelves con el mismo nombre recuperas tu marcador.
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.

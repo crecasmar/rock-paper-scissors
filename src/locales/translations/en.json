@@ -5,6 +5,9 @@
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
+  "components.ranking-link.see": "See the current ranking",
+  "components.ranking-link.back": "Go back",
+
   "components.reload-toast.offline-ready": "The game is ready to play offline!",
   "components.reload-toast.new-version": "A new version of the game is available. Do you want to update now?",
   "components.reload-toast.update": "Update",
@@ -27,6 +30,11 @@
   "pages.game.you": "You:",
   "pages.game.bot": "Bot:",
   "pages.game.bot-thinking": "The bot is choosing its move",
+
+  "pages.ranking.title": "Ranking",
+  "pages.ranking.empty": "There are no player's scores registered to rank",
+  "pages.ranking.score": "{score} pts",
+  "pages.ranking.player-label": "Position {position}: {name}, {score, plural, one {# point} other {# points}}",
 
   "pages.not-found.title": "Page not found",
   "pages.not-found.back": "Go back"

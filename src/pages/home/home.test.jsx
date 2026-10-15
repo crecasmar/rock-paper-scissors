@@ -61,6 +61,13 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
   });
 
+  test("renders the link to the ranking", () => {
+    renderHome();
+    expect(
+      screen.getByRole("link", { name: "components.ranking-link.see" })
+    ).toHaveAttribute("href", "/ranking");
+  });
+
   test("renders the name input and the JOIN button", () => {
     renderHome();
     expect(getNameInput()).toBeInTheDocument();

@@ -23,7 +23,7 @@ export default defineConfig({
       },
 
       manifest: {
-        name: "Piedra Papel Tijera",
+        name: "Rock, Paper, Scissors",
         short_name: "RockPaperScissors",
         description: "Rock paper scissors project",
         theme_color: "#ffffff",
