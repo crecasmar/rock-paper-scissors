@@ -41,14 +41,17 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 
 ### Scripts disponibles
 
-| Comando                 | Qué hace                                                         |
-| ----------------------- | ---------------------------------------------------------------- |
-| `npm run dev`           | Servidor de desarrollo con recarga en caliente                   |
-| `npm run build`         | Genera la versión de producción en `dist/`                       |
-| `npm run preview`       | Sirve en local la versión ya compilada (útil para probar la PWA) |
-| `npm test`              | Ejecuta los tests en modo _watch_                                |
-| `npm run test:coverage` | Ejecuta los tests una vez y genera el informe de cobertura       |
-| `npm run lint`          | Revisa el código con ESLint                                      |
+| Comando                   | Qué hace                                                         |
+| ------------------------- | ---------------------------------------------------------------- |
+| `npm run dev`             | Servidor de desarrollo con recarga en caliente                   |
+| `npm run build`           | Genera la versión de producción en `dist/`                       |
+| `npm run preview`         | Sirve en local la versión ya compilada (útil para probar la PWA) |
+| `npm test`                | Ejecuta los tests en modo _watch_                                |
+| `npm run test:coverage`   | Ejecuta los tests una vez y genera el informe de cobertura       |
+| `npm run test:e2e`        | Ejecuta los tests end-to-end con Playwright                      |
+| `npm run test:e2e:ui`     | Abre los tests end-to-end en el modo interactivo de Playwright   |
+| `npm run test:e2e:report` | Abre el informe HTML de la última ejecución end-to-end           |
+| `npm run lint`            | Revisa el código con ESLint                                      |
 
 ---
 
