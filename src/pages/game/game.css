@@ -4,8 +4,12 @@
   @apply flex grow flex-col items-center justify-start gap-8 px-4 pt-4 pb-8;
 }
 
+.game-page__score-section {
+  @apply flex w-full flex-col items-center gap-2 mt-4;
+}
+
 .game-page__score {
-  @apply text-2xl font-semibold text-heading pt-4;
+  @apply text-2xl font-semibold text-heading;
 }
 
 .game-page__actions {

@@ -2,7 +2,7 @@
 
 .button {
   @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-center font-semibold shadow;
-  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+  @apply focus:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
   @apply disabled:cursor-not-allowed disabled:opacity-40;
   @apply transition duration-300 ease-in-out motion-reduce:transition-none;
 }

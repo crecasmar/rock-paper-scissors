@@ -1,7 +1,7 @@
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { ActionButton, Spinner } from "@/components";
+import { ActionButton, PlayerStats, Spinner } from "@/components";
 import useGameRound from "@/hooks/use-game-round";
 import { useAuth, useGameMode, useGameStats } from "@/store/game-store";
 import {
@@ -59,9 +59,9 @@ const GamePage = () => {
   const { formatMessage } = useIntl();
   const { currentUser } = useAuth();
   const { gameMode } = useGameMode();
-  const { currentUserScore, addWin } = useGameStats();
+  const { currentUserScore, currentUserStats, recordResult } = useGameStats();
   const { round, isThinking, play } = useGameRound({
-    onWin: addWin,
+    onResult: recordResult,
     mode: gameMode,
   });
   const animations = round?.result ? ICON_ANIMATIONS[round.result] : {};
@@ -72,12 +72,15 @@ const GamePage = () => {
 
   return (
     <main data-testid="game-page" className="game-page">
-      <p className="game-page__score" aria-live="polite">
-        <FormattedMessage
-          id="pages.game.score"
-          values={{ score: currentUserScore }}
-        />
-      </p>
+      <div className="game-page__score-section">
+        <p className="game-page__score" aria-live="polite">
+          <FormattedMessage
+            id="pages.game.score"
+            values={{ score: currentUserScore }}
+          />
+        </p>
+        <PlayerStats stats={currentUserStats} mode={gameMode} />
+      </div>
 
       <div className="game-page__actions">
         {GAME_MODE_MOVES[gameMode].map((move) => (

@@ -244,7 +244,77 @@ describe("GamePage", () => {
       waitForBot();
 
       const { result } = renderHook(() => useGameStats());
-      expect(result.current.players).toEqual({ Maria: { classicScore: 1 } });
+      expect(result.current.players).toEqual({
+        Maria: {
+          classicScore: 1,
+          classicStats: {
+            wins: 1,
+            losses: 0,
+            ties: 0,
+            currentStreak: 1,
+            longestStreak: 1,
+          },
+        },
+      });
+    });
+
+    describe("statistics", () => {
+      const STATS = "components.player-stats.toggle";
+      const getStat = (label) => screen.getByText(label).nextElementSibling;
+
+      test("shows a closed statistics button below the score", () => {
+        renderGame();
+
+        const button = screen.getByRole("button", { name: STATS });
+        expect(button).toHaveAttribute("aria-expanded", "false");
+        expect(screen.queryByRole("region")).not.toBeInTheDocument();
+      });
+
+      test("opening them shows the summary of the selected mode", async () => {
+        const user = setupUser();
+        renderGame();
+
+        await user.click(screen.getByRole("button", { name: STATS }));
+
+        expect(screen.getByRole("button", { name: STATS })).toHaveAttribute(
+          "aria-expanded",
+          "true"
+        );
+        expect(
+          screen.getByRole("region", {
+            name: "components.player-stats.title game.modes.classic",
+          })
+        ).toBeVisible();
+      });
+
+      test("are updated after every round", async () => {
+        const user = setupUser();
+        renderGame();
+        await user.click(screen.getByRole("button", { name: STATS }));
+
+        // Bot plays rock, then paper, then rock
+        await user.click(getMoveButton(PAPER));
+        waitForBot();
+        await user.click(getMoveButton(ROCK));
+        waitForBot();
+        await user.click(getMoveButton(SCISSORS));
+        waitForBot();
+
+        expect(getStat("components.player-stats.played")).toHaveTextContent(
+          "3"
+        );
+        expect(getStat("components.player-stats.wins")).toHaveTextContent("1");
+        expect(getStat("components.player-stats.losses")).toHaveTextContent(
+          "2"
+        );
+        expect(getStat("components.player-stats.ties")).toHaveTextContent("0");
+        expect(
+          getStat("components.player-stats.longest-streak")
+        ).toHaveTextContent("1");
+        expect(
+          getStat("components.player-stats.current-streak")
+        ).toHaveTextContent("0");
+      });
     });
 
     test("goes back home when the player logs out", () => {
@@ -307,7 +377,9 @@ describe("GamePage", () => {
       expect(screen.getByText(score(1))).toBeInTheDocument();
 
       const { result } = renderHook(() => useGameStats());
-      expect(result.current.players).toEqual({ Maria: { expandedScore: 1 } });
+      expect(result.current.players).toMatchObject({
+        Maria: { expandedScore: 1, expandedStats: { wins: 1 } },
+      });
     });
 
     test("lizard loses against rock", async () => {

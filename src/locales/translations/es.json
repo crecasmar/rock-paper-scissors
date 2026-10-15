@@ -7,6 +7,15 @@
 
   "components.game-mode-selector.title": "Elige tu modo de juego",
 
+  "components.player-stats.toggle": "Mis estadísticas",
+  "components.player-stats.title": "Modo {mode}",
+  "components.player-stats.played": "Partidas jugadas",
+  "components.player-stats.wins": "Ganadas",
+  "components.player-stats.losses": "Perdidas",
+  "components.player-stats.ties": "Empatadas",
+  "components.player-stats.longest-streak": "Mejor racha de victorias",
+  "components.player-stats.current-streak": "Racha actual de victorias",
+
   "components.ranking-link.see": "Ver ranking",
   "components.ranking-link.back": "Volver",
 

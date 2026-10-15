@@ -1,6 +1,6 @@
 /** localStorage key where the game store is persisted */
 const STORAGE_KEY = "rock-paper-scissors-storage";
-const STORAGE_VERSION = 1;
+const STORAGE_VERSION = 2;
 
 export const RESULT_TEXTS = Object.freeze({
   win: "You won!",
