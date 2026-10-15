@@ -6,6 +6,7 @@ import {
   pickBotMove,
   RESULTS,
 } from "@/utils/game-rules";
+import { LOSE_VIBRATION_MS, vibrate } from "@/utils/vibration";
 
 /**
  * @typedef {Object} Round
@@ -51,6 +52,7 @@ const useGameRound = ({ onWin } = {}) => {
 
       setRound({ id, playerMove, botMove, result });
       if (result === RESULTS.WIN) onWinRef.current?.();
+      if (result === RESULTS.LOSE) vibrate(LOSE_VIBRATION_MS);
     }, BOT_THINKING_DELAY_MS);
   }, []);
 

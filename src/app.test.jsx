@@ -1,22 +1,9 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
-import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import { supportedLocales } from "./locales";
 
 const BASE_URL = import.meta.env.BASE_URL;
-
-const pwa = vi.hoisted(() => ({
-  initialState: { offlineReady: false, needRefresh: false },
-}));
-
-vi.mock("virtual:pwa-register/react", () => ({
-  useRegisterSW: () => ({
-    offlineReady: useState(pwa.initialState.offlineReady),
-    needRefresh: useState(pwa.initialState.needRefresh),
-    updateServiceWorker: vi.fn(),
-  }),
-}));
 
 const renderApp = async ({ language = "en-US", path = BASE_URL } = {}) => {
   vi.spyOn(navigator, "language", "get").mockReturnValue(language);
@@ -30,7 +17,6 @@ const renderApp = async ({ language = "en-US", path = BASE_URL } = {}) => {
 describe("Application", () => {
   beforeEach(() => {
     localStorage.clear();
-    pwa.initialState = { offlineReady: false, needRefresh: false };
   });
 
   afterEach(() => {
@@ -96,23 +82,6 @@ describe("Application", () => {
 
       expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
       expect(window.location.pathname).toBe(`${BASE_URL}ranking`);
-    });
-  });
-
-  describe("reload toast", () => {
-    test("is hidden while there is nothing to report", async () => {
-      await renderApp();
-
-      expect(screen.queryByRole("status")).not.toBeInTheDocument();
-    });
-
-    test("tells the player when a new version is available", async () => {
-      pwa.initialState = { offlineReady: false, needRefresh: true };
-      await renderApp();
-
-      expect(screen.getByRole("status")).toHaveTextContent(
-        "A new version of the game is available. Do you want to update now?"
-      );
     });
   });
 });
