@@ -10,7 +10,7 @@ import {
   within,
 } from "@/utils/test-utils";
 
-import { BOT_THINKING_DELAY_MS } from "@/utils/game-rules";
+import { BOT_THINKING_DELAY_MS, GAME_MODES } from "@/utils/game-rules";
 
 /**
  * The store is a module-level singleton that keeps every player's score,
@@ -19,6 +19,7 @@ import { BOT_THINKING_DELAY_MS } from "@/utils/game-rules";
 let GamePage;
 let useAuth;
 let useGameStats;
+let useGameMode;
 
 const getAuth = () => renderHook(() => useAuth()).result.current;
 
@@ -34,6 +35,8 @@ const renderGame = (locale = KEYS_LOCALE) =>
 const ROCK = "game.moves.rock";
 const PAPER = "game.moves.paper";
 const SCISSORS = "game.moves.scissors";
+const LIZARD = "game.moves.lizard";
+const SPOCK = "game.moves.spock";
 const YOU = "pages.game.you";
 const BOT = "pages.game.bot";
 const score = (value) => `pages.game.score ${value}`;
@@ -54,7 +57,8 @@ describe("GamePage", () => {
     localStorage.clear();
     vi.resetModules();
     ({ default: GamePage } = await import("./game"));
-    ({ useAuth, useGameStats } = await import("@/store/game-store"));
+    ({ useAuth, useGameStats, useGameMode } =
+      await import("@/store/game-store"));
   });
 
   test("redirects to home when no player is registered", () => {
@@ -83,12 +87,10 @@ describe("GamePage", () => {
       expect(screen.getByText(score(0))).toBeInTheDocument();
     });
 
-    test("shows the link to the ranking", () => {
+    test("does not show the link to the ranking", () => {
       renderGame();
 
-      expect(
-        screen.getByRole("link", { name: "components.ranking-link.see" })
-      ).toHaveAttribute("href", "/ranking");
+      expect(screen.queryByRole("link")).not.toBeInTheDocument();
     });
 
     test("shows the three move buttons enabled", () => {
@@ -242,7 +244,7 @@ describe("GamePage", () => {
       waitForBot();
 
       const { result } = renderHook(() => useGameStats());
-      expect(result.current.players).toEqual({ Maria: { score: 1 } });
+      expect(result.current.players).toEqual({ Maria: { classicScore: 1 } });
     });
 
     test("goes back home when the player logs out", () => {
@@ -264,6 +266,78 @@ describe("GamePage", () => {
 
       expect(getChoice("Tú:")).toHaveTextContent("🖐️Papel");
       expect(screen.getByRole("status")).toHaveTextContent("¡Has ganado!");
+    });
+  });
+
+  describe("with a player in expanded mode", () => {
+    beforeEach(() => {
+      const { setGameMode } = renderHook(() => useGameMode()).result.current;
+      act(() => setGameMode(GAME_MODES.EXPANDED));
+      const { login } = getAuth();
+      act(() => login("Maria"));
+      vi.useFakeTimers({ shouldAdvanceTime: true });
+      vi.spyOn(Math, "random").mockReturnValue(0);
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+      vi.restoreAllMocks();
+    });
+
+    test("shows the five move buttons", () => {
+      renderGame();
+
+      expect(
+        [ROCK, PAPER, SCISSORS, LIZARD, SPOCK].map(
+          (name) => getMoveButton(name).textContent
+        )
+      ).toEqual(["✊", "🖐️", "✌️", "🦎", "🖖"]);
+    });
+
+    test("spock beats rock and adds an expanded point", async () => {
+      const user = setupUser();
+      renderGame();
+
+      await user.click(getMoveButton(SPOCK));
+      waitForBot();
+
+      expect(getChoice(YOU)).toHaveTextContent(`🖖${SPOCK}`);
+      expect(getChoice(BOT)).toHaveTextContent(`✊${ROCK}`);
+      expect(screen.getByRole("status")).toHaveTextContent("game.results.win");
+      expect(screen.getByText(score(1))).toBeInTheDocument();
+
+      const { result } = renderHook(() => useGameStats());
+      expect(result.current.players).toEqual({ Maria: { expandedScore: 1 } });
+    });
+
+    test("lizard loses against rock", async () => {
+      const user = setupUser();
+      renderGame();
+
+      await user.click(getMoveButton(LIZARD));
+      waitForBot();
+
+      expect(screen.getByRole("status")).toHaveTextContent("game.results.lose");
+      expect(screen.getByText(score(0))).toBeInTheDocument();
+    });
+
+    test("the bot can play the expanded moves", async () => {
+      Math.random.mockReturnValue(0.99);
+      const user = setupUser();
+      renderGame();
+
+      await user.click(getMoveButton(LIZARD));
+      waitForBot();
+
+      expect(getChoice(BOT)).toHaveTextContent(`🖖${SPOCK}`);
+      expect(screen.getByRole("status")).toHaveTextContent("game.results.win");
+    });
+
+    test("renders the Spanish names of the new moves", () => {
+      renderGame("es");
+
+      expect(screen.getByRole("button", { name: "Lagarto" })).toBeEnabled();
+      expect(screen.getByRole("button", { name: "Spock" })).toBeEnabled();
     });
   });
 });

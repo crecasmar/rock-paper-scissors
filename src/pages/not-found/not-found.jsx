@@ -1,5 +1,6 @@
-import { Link } from "react-router";
 import { FormattedMessage } from "react-intl";
+
+import { Button } from "@/components";
 
 import "./not-found.css";
 
@@ -13,9 +14,9 @@ const NotFoundPage = () => (
       <FormattedMessage id="pages.not-found.title" />
     </h1>
 
-    <Link to="/home" className="not-found-page__button">
+    <Button to="/home">
       <FormattedMessage id="pages.not-found.back" />
-    </Link>
+    </Button>
   </main>
 );
 

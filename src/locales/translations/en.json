@@ -5,15 +5,21 @@
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
-  "components.ranking-link.see": "See the current ranking",
+  "components.game-mode-selector.title": "Choose your mode",
+
+  "components.ranking-link.see": "See ranking",
   "components.ranking-link.back": "Go back",
 
   "game.moves.rock": "Rock",
   "game.moves.paper": "Paper",
   "game.moves.scissors": "Scissors",
+  "game.moves.lizard": "Lizard",
+  "game.moves.spock": "Spock",
   "game.results.win": "You won!",
   "game.results.lose": "You lost!",
   "game.results.tie": "Tie!",
+  "game.modes.classic": "Classic",
+  "game.modes.expanded": "Expanded",
 
   "pages.home.title": "Create new player",
   "pages.home.name-label": "Name",

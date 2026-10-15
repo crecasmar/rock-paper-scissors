@@ -12,6 +12,7 @@ import {
 
 import HomePage from "./home";
 import { useAuth } from "@/store/game-store";
+import { GAME_MODES } from "@/utils/game-rules";
 import {
   PLAYER_NAME_ERROR_DELAY_MS,
   PLAYER_NAME_MAX_LENGTH,
@@ -39,6 +40,11 @@ const getNameInput = () =>
 const getJoinButton = () =>
   screen.getByRole("button", { name: "PAGES.HOME.JOIN" });
 const getNameHint = () => screen.getByRole("alert");
+const getModeGroup = () =>
+  screen.getByRole("group", { name: "components.game-mode-selector.title" });
+const getModeRadio = (name) => screen.getByRole("radio", { name });
+
+const EXPANDED = "game.modes.expanded";
 
 const NAME_HINT = `pages.home.name-hint ${PLAYER_NAME_MIN_LENGTH} ${PLAYER_NAME_MAX_LENGTH}`;
 
@@ -61,11 +67,35 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
   });
 
-  test("renders the link to the ranking", () => {
+  test("does not render the ranking link, which lives in the navigation bar", () => {
     renderHome();
-    expect(
-      screen.getByRole("link", { name: "components.ranking-link.see" })
-    ).toHaveAttribute("href", "/ranking");
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+  });
+
+  describe("game mode", () => {
+    test("sits above the title", () => {
+      renderHome();
+
+      const title = screen.getByRole("heading", { level: 1 });
+      expect(getModeGroup().compareDocumentPosition(title)).toBe(
+        Node.DOCUMENT_POSITION_FOLLOWING
+      );
+    });
+
+    test("joining in expanded mode creates an expanded score", async () => {
+      const user = userEvent.setup();
+      renderHome();
+
+      await user.click(getModeRadio(EXPANDED));
+      await user.type(getNameInput(), "Maria");
+      await user.click(getJoinButton());
+
+      expect(getPersistedState()).toMatchObject({
+        currentUser: "Maria",
+        gameMode: GAME_MODES.EXPANDED,
+        players: { Maria: { expandedScore: 0 } },
+      });
+    });
   });
 
   test("renders the name input and the JOIN button", () => {
@@ -131,7 +161,7 @@ describe("HomePage", () => {
 
     expect(getPersistedState()).toMatchObject({
       currentUser: "Maria",
-      players: { Maria: { score: 0 } },
+      players: { Maria: { classicScore: 0 } },
     });
   });
 
@@ -179,6 +209,9 @@ describe("HomePage", () => {
       screen.getByRole("heading", { level: 1, name: "Crear nuevo jugador" })
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "UNIRSE" })).toBeDisabled();
+    expect(
+      screen.getByRole("group", { name: "Elige tu modo" })
+    ).toBeInTheDocument();
   });
 
   describe("invalid name error", () => {

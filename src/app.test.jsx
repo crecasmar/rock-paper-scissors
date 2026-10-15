@@ -76,9 +76,7 @@ describe("Application", () => {
       const user = userEvent.setup();
       await renderApp();
 
-      await user.click(
-        screen.getByRole("link", { name: "See the current ranking" })
-      );
+      await user.click(screen.getByRole("link", { name: "See ranking" }));
 
       expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
       expect(window.location.pathname).toBe(`${BASE_URL}ranking`);
