@@ -9,7 +9,7 @@
 }
 
 .game-page__score {
-  @apply text-2xl font-semibold text-heading;
+  @apply text-2xl font-semibold text-accent;
 }
 
 .game-page__actions {

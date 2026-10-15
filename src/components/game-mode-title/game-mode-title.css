@@ -31,7 +31,7 @@
   --arrow-offset: 1.25rem;
 
   @apply invisible absolute top-full -right-2 z-10 mt-3 w-max max-w-[min(18rem,calc(100vw-2rem))];
-  @apply rounded-md bg-heading px-4 py-3 text-left text-sm font-medium text-surface shadow-md opacity-0;
+  @apply rounded-md bg-sky-900 dark:bg-sky-100 px-4 py-3 text-left text-sm font-medium text-surface shadow-md opacity-0;
   @apply transition-opacity duration-300 ease-in-out motion-reduce:transition-none;
 }
 
@@ -48,5 +48,5 @@
 }
 
 .game-mode-title__tooltip-arrow {
-  @apply absolute right-(--arrow-offset) bottom-full size-2.5 translate-x-1/2 translate-y-1/2 rotate-45 bg-heading;
+  @apply absolute right-(--arrow-offset) bottom-full size-2.5 translate-x-1/2 translate-y-1/2 rotate-45 bg-sky-900 dark:bg-sky-100;
 }
