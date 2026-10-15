@@ -63,10 +63,11 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
   - **Extendido**: piedra, papel, tijera, lagarto, Spock.
 - **Partida contra el bot**: eliges tu jugada entre las del modo elegido y el bot "piensa" durante 1 segundo antes de responder.
 - **Bot impredecible**: el bot nunca repite la misma jugada dos veces seguidas.
-- **Puntuación y estadísticas persistente**: cada victoria suma un punto en el modo en el que estés jugando y además puedes ver las estadísticas de tus partidas.
+- **Puntuación y estadísticas**: cada victoria suma un punto en el modo en el que estés jugando y además puedes ver las estadísticas de tus partidas.
+- **Cambia entre modos de juego**: puedes cambiar de modo desde la barra de navegación. Siempre tendrás instrucciones para jugar por si te olvidas.
 - **Ranking**: desde la barra de navegación (con la sesión cerrada) puedes ver la clasificación de todos los jugadores.
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.
-- **Multidioma**: español e inglés. El idioma se elige automáticamente según el navegador (inglés por defecto).
+- **Multidioma**: español e inglés. El idioma se elige automáticamente según el idioma de tu navegador (inglés por defecto).
 - **PWA instalable y offline**: las nuevas versiones se descargan en segundo plano y se usan en la siguiente visita, sin avisos ni recargas a mitad de partida.
 - **Modo claro y oscuro**: utiliza la aplicación en el modo favorito de tu navegador.
 
@@ -106,7 +107,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 ```
 e2e/                  # Tests end-to-end con Playwright
 ├── helpers/          # Datos y utilidades compartidos (modos, reglas, jugadores de prueba)
-└── *.spec.js         # Un recorrido de usuario por archivo (ronda clásica, extendida, ranking, puntuación)
+└── *.spec.js         # Un recorrido de usuario por archivo (ronda clásica, extendida, estadísticas, ranking, puntuación)
 src/
 ├── components/       # Componentes reutilizables (botones, barra de navegación, selector de modo, layout, spinner)
 ├── hooks/            # Hooks propios (lógica de cada ronda, valor con retardo)
