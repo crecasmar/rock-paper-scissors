@@ -4,6 +4,10 @@
   @apply flex grow flex-col items-center justify-start px-4 pt-4 pb-8;
 }
 
+.home-page__logo {
+  @apply mt-4 size-32 sm:size-40;
+}
+
 .home-page__form {
   @apply flex w-full max-w-90 flex-col gap-2 text-left;
 }

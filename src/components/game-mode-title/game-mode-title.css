@@ -1,0 +1,52 @@
+@reference "@/index.css";
+
+.game-mode-title {
+  @apply flex items-center justify-center gap-2;
+}
+
+.game-mode-title__heading {
+  @apply m-0 text-3xl;
+}
+
+.game-mode-title__rules {
+  @apply relative inline-flex;
+}
+
+.game-mode-title__info {
+  @apply inline-flex cursor-pointer rounded-full text-body;
+  @apply hover:text-accent aria-expanded:text-accent;
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+  @apply transition-colors duration-300 ease-in-out motion-reduce:transition-none;
+}
+
+.game-mode-title__icon {
+  @apply size-6;
+}
+
+/*
+ * Dark style tooltip below the icon: it inverts its colours with the theme.
+ * It grows to the left, as the icon sits at the end of the title.
+ */
+.game-mode-title__tooltip {
+  --arrow-offset: 1.25rem;
+
+  @apply invisible absolute top-full -right-2 z-10 mt-3 w-max max-w-[min(18rem,calc(100vw-2rem))];
+  @apply rounded-md bg-sky-900 dark:bg-sky-100 px-4 py-3 text-left text-sm font-medium text-surface shadow-md opacity-0;
+  @apply transition-opacity duration-300 ease-in-out motion-reduce:transition-none;
+}
+
+.game-mode-title__tooltip[data-open="true"] {
+  @apply visible opacity-100;
+}
+
+.game-mode-title__tooltip-title {
+  @apply mb-1 font-semibold;
+}
+
+.game-mode-title__rule-list {
+  @apply m-0 list-disc ps-5;
+}
+
+.game-mode-title__tooltip-arrow {
+  @apply absolute right-(--arrow-offset) bottom-full size-2.5 translate-x-1/2 translate-y-1/2 rotate-45 bg-sky-900 dark:bg-sky-100;
+}

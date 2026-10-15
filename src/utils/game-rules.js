@@ -30,6 +30,27 @@ export const GAME_MODE_MESSAGES = Object.freeze({
   [GAME_MODES.EXPANDED]: { id: "game.modes.expanded" },
 });
 
+/** Rules of each game mode, as shown to the player */
+export const GAME_MODE_RULES = Object.freeze({
+  [GAME_MODES.CLASSIC]: Object.freeze([
+    { id: "game.rules.rock-crushes-scissors" },
+    { id: "game.rules.scissors-cuts-paper" },
+    { id: "game.rules.paper-covers-rock" },
+  ]),
+  [GAME_MODES.EXPANDED]: Object.freeze([
+    { id: "game.rules.scissors-cuts-paper" },
+    { id: "game.rules.paper-covers-rock" },
+    { id: "game.rules.rock-crushes-lizard" },
+    { id: "game.rules.lizard-poisons-spock" },
+    { id: "game.rules.spock-smashes-scissors" },
+    { id: "game.rules.scissors-decapitates-lizard" },
+    { id: "game.rules.lizard-eats-paper" },
+    { id: "game.rules.paper-disproves-spock" },
+    { id: "game.rules.spock-vaporizes-rock" },
+    { id: "game.rules.rock-crushes-scissors" },
+  ]),
+});
+
 /** Moves available in each game mode, in display order */
 export const GAME_MODE_MOVES = Object.freeze({
   [GAME_MODES.CLASSIC]: Object.freeze([

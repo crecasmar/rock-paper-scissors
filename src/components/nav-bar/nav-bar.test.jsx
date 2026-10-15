@@ -78,6 +78,16 @@ describe("NavBar", () => {
       }
     );
 
+    test("shows the button to change the game mode", () => {
+      renderNavBar({ userName: "Maria", onLogout: vi.fn() });
+
+      expect(
+        screen.getByRole("button", {
+          name: "game.modes.switch game.modes.expanded",
+        })
+      ).toBeInTheDocument();
+    });
+
     test("calls onLogout when the log out button is clicked", async () => {
       const user = userEvent.setup();
       const onLogout = vi.fn();

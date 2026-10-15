@@ -8,7 +8,7 @@ export default defineConfig({
     preset: "2023",
   },
   preset,
-  images: ["public/favicon.svg"], // Pon aquí la ruta de tu logo original (preferiblemente SVG)
+  images: ["public/rock-paper-scissors.svg"], // Pon aquí la ruta de tu logo original (preferiblemente SVG)
 });
 
 //Recomendation

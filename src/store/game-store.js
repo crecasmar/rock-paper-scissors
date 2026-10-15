@@ -106,7 +106,23 @@ const useGameStore = create(
       currentUser: null,
       gameMode: DEFAULT_GAME_MODE,
 
-      setGameMode: (gameMode) => set({ gameMode }),
+      // A logged in player starts the new mode with a score, as on login
+      setGameMode: (gameMode) =>
+        set((state) => {
+          const user = state.currentUser;
+          if (!user) return { gameMode };
+
+          const scoreKey = SCORE_KEYS[gameMode];
+          const player = state.players[user] ?? {};
+
+          return {
+            gameMode,
+            players: {
+              ...state.players,
+              [user]: { ...player, [scoreKey]: player[scoreKey] ?? 0 },
+            },
+          };
+        }),
 
       login: (name) =>
         set((state) => {

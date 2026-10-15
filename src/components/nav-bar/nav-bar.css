@@ -12,6 +12,15 @@
   @apply truncate font-medium text-heading;
 }
 
+.nav-bar__actions {
+  @apply flex shrink-0 flex-wrap items-center justify-end gap-4;
+}
+
 .nav-bar__action {
   @apply shrink-0;
+}
+
+/* Small screens only show the icons, so the greeting has room */
+.nav-bar__action-label {
+  @apply max-sm:sr-only;
 }

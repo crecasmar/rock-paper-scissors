@@ -63,12 +63,22 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
   - **Extendido**: piedra, papel, tijera, lagarto, Spock.
 - **Partida contra el bot**: eliges tu jugada entre las del modo elegido y el bot "piensa" durante 1 segundo antes de responder.
 - **Bot impredecible**: el bot nunca repite la misma jugada dos veces seguidas.
-- **Puntuación y estadísticas persistente**: cada victoria suma un punto en el modo en el que estés jugando y además puedes ver las estadísticas de tus partidas.
+- **Puntuación y estadísticas**: cada victoria suma un punto en el modo en el que estés jugando y además puedes ver las estadísticas de tus partidas.
+- **Cambia entre modos de juego**: puedes cambiar de modo desde la barra de navegación. Siempre tendrás instrucciones para jugar por si te olvidas.
 - **Ranking**: desde la barra de navegación (con la sesión cerrada) puedes ver la clasificación de todos los jugadores.
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.
-- **Multidioma**: español e inglés. El idioma se elige automáticamente según el navegador (inglés por defecto).
+- **Multidioma**: español e inglés. El idioma se elige automáticamente según el idioma de tu navegador (inglés por defecto).
 - **PWA instalable y offline**: las nuevas versiones se descargan en segundo plano y se usan en la siguiente visita, sin avisos ni recargas a mitad de partida.
 - **Modo claro y oscuro**: utiliza la aplicación en el modo favorito de tu navegador.
+
+### 🔮 Mejoras pendientes
+
+Dos mejoras que se plantearon y quedan fuera de esta versión, con la idea de cómo se implementarían:
+
+- **Jugar contra otro jugador** en lugar de contra la máquina. Hay dos enfoques posibles:
+  - **En el mismo dispositivo, por turnos**: cada jugador elige su jugada y se oculta la pantalla antes de pasar el móvil al siguiente. El resultado se muestra cuando los dos han elegido. Bastaría con un nuevo modo en la store de la aplicación (`players: [a, b]`, `pendingMove`) y reutilizar `getRoundResult`, sustituyendo al bot por la jugada del segundo jugador en `useGameRound`.
+  - **En dispositivos distintos, en tiempo real**: conexión directa entre navegadores con **WebRTC**, usando **PeerJS** por ser la opción más sencilla para un proyecto de este tamaño. PeerJS ofrece un servidor de señalización gratuito, así que la app puede seguir desplegada como web estática en GitHub Pages, sin backend propio. Un jugador crea una sala y comparte el enlace (`/game?room=<id>`). Cada uno envía su jugada por el canal de datos y solo se revelan cuando han llegado las dos, para que nadie pueda esperar a ver la del rival.
+- **Un bot más "inteligente"**, con más probabilidad de ganar. Las personas no juegan al azar: repiten la jugada con la que acaban de ganar, cambian tras perder o tienen una jugada favorita. El bot guardaría el historial de jugadas del jugador e intentaría predecir la siguiente, por ejemplo contando qué suele jugar después de cada jugada. Después elegiría la jugada que gana a esa predicción. Para que no se vuelva predecible, mantendría un porcentaje de jugadas aleatorias. Todo encaja en `pickBotMove`, que ya recibe el contexto de la ronda anterior.
 
 ---
 
@@ -106,7 +116,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 ```
 e2e/                  # Tests end-to-end con Playwright
 ├── helpers/          # Datos y utilidades compartidos (modos, reglas, jugadores de prueba)
-└── *.spec.js         # Un recorrido de usuario por archivo (ronda clásica, extendida, ranking, puntuación)
+└── *.spec.js         # Un recorrido de usuario por archivo (ronda clásica, extendida, estadísticas, ranking, puntuación)
 src/
 ├── components/       # Componentes reutilizables (botones, barra de navegación, selector de modo, layout, spinner)
 ├── hooks/            # Hooks propios (lógica de cada ronda, valor con retardo)

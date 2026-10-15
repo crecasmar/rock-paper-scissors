@@ -60,6 +60,16 @@ describe("HomePage", () => {
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
   });
 
+  test("shows the app's icon above the game mode", () => {
+    renderHome();
+
+    const logo = screen.getByRole("img", { name: "app-name" });
+    expect(logo).toHaveAttribute("src", "/rock-paper-scissors.svg");
+    expect(logo.compareDocumentPosition(getModeGroup())).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING
+    );
+  });
+
   test("renders the title", () => {
     renderHome();
     expect(

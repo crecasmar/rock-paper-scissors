@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { KEYS_LOCALE, render, screen, within } from "@/utils/test-utils";
 
 import { EMPTY_STATS } from "@/store/game-store";
-import { GAME_MODES } from "@/utils/game-rules";
 
 import PlayerStats from "./player-stats";
 
@@ -17,11 +16,8 @@ const STATS = {
   longestStreak: 3,
 };
 
-const renderStats = ({
-  stats = STATS,
-  mode = GAME_MODES.CLASSIC,
-  locale = KEYS_LOCALE,
-} = {}) => render(<PlayerStats stats={stats} mode={mode} />, { locale });
+const renderStats = ({ stats = STATS, locale = KEYS_LOCALE } = {}) =>
+  render(<PlayerStats stats={stats} />, { locale });
 
 const getRows = () =>
   within(screen.getByRole("region", { hidden: true }))
@@ -98,30 +94,24 @@ describe("PlayerStats", () => {
     ]);
   });
 
-  test.each([
-    [GAME_MODES.CLASSIC, "game.modes.classic"],
-    [GAME_MODES.EXPANDED, "game.modes.expanded"],
-  ])("names the %s game mode in the title", async (mode, modeId) => {
+  test("is named after the button, without repeating the game mode", async () => {
     const user = userEvent.setup();
-    renderStats({ mode });
+    renderStats();
 
     await user.click(screen.getByRole("button", { name: TOGGLE }));
 
-    expect(
-      screen.getByRole("region", {
-        name: `components.player-stats.title ${modeId}`,
-      })
-    ).toBeVisible();
+    expect(screen.getByRole("region", { name: TOGGLE })).toBeVisible();
+    expect(screen.queryByRole("heading")).not.toBeInTheDocument();
   });
 
   test("renders the Spanish translations", async () => {
     const user = userEvent.setup();
-    renderStats({ locale: "es", mode: GAME_MODES.EXPANDED });
+    renderStats({ locale: "es" });
 
     await user.click(screen.getByRole("button", { name: "Mis estadísticas" }));
 
     expect(
-      screen.getByRole("region", { name: "Modo Extendido" })
+      screen.getByRole("region", { name: "Mis estadísticas" })
     ).toBeVisible();
     expect(getRows()).toEqual([
       ["Partidas jugadas", "13"],
