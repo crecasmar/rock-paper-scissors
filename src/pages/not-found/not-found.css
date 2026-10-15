@@ -7,8 +7,3 @@
 .not-found-page__code {
   @apply text-6xl font-bold text-accent -m-6;
 }
-
-.not-found-page__button {
-  @apply rounded-md bg-accent px-4 py-2.5 font-semibold tracking-wider text-white;
-  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
-}

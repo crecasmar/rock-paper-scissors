@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { GameModeSelector, RankingLink } from "@/components";
+import { Button, GameModeSelector, RankingLink } from "@/components";
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import { useAuth } from "@/store/game-store";
 import {
@@ -87,13 +87,13 @@ const HomePage = () => {
           )}
         </p>
 
-        <button
+        <Button
           type="submit"
           className="home-page__button"
           disabled={!nameIsValid}
         >
           {formatMessage({ id: "pages.home.join" }).toUpperCase()}
-        </button>
+        </Button>
       </form>
     </main>
   );

@@ -1,5 +1,8 @@
-import { Link, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { FormattedMessage } from "react-intl";
+
+import Button from "@/components/button/button";
+import { BUTTON_VARIANTS } from "@/components/button/button-variants";
 
 import "./ranking-link.css";
 
@@ -13,17 +16,26 @@ const RankingLink = () => {
 
   if (pathname === RANKING_PATH) {
     return (
-      <Link to={state?.from ?? "/home"} className="ranking-link">
+      <Button
+        variant={BUTTON_VARIANTS.SECONDARY}
+        to={state?.from ?? "/home"}
+        className="ranking-link"
+      >
         <span aria-hidden="true">↩ </span>
         <FormattedMessage id="components.ranking-link.back" />
-      </Link>
+      </Button>
     );
   }
 
   return (
-    <Link to={RANKING_PATH} state={{ from: pathname }} className="ranking-link">
+    <Button
+      variant={BUTTON_VARIANTS.SECONDARY}
+      to={RANKING_PATH}
+      state={{ from: pathname }}
+      className="ranking-link"
+    >
       <FormattedMessage id="components.ranking-link.see" />
-    </Link>
+    </Button>
   );
 };
 

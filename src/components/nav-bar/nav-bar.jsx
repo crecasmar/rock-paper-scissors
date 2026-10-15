@@ -1,5 +1,8 @@
 import { FormattedMessage, useIntl } from "react-intl";
 
+import Button from "@/components/button/button";
+import { BUTTON_VARIANTS } from "@/components/button/button-variants";
+
 import "./nav-bar.css";
 
 /**
@@ -27,9 +30,13 @@ const NavBar = ({ userName, onLogout }) => {
         </span>
 
         {userName && (
-          <button type="button" className="nav-bar__logout" onClick={onLogout}>
+          <Button
+            variant={BUTTON_VARIANTS.SECONDARY}
+            className="nav-bar__logout"
+            onClick={onLogout}
+          >
             <FormattedMessage id="components.nav-bar.logout" />
-          </button>
+          </Button>
         )}
       </nav>
     </header>
