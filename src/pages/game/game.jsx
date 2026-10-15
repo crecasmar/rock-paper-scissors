@@ -3,8 +3,13 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import { ActionButton, RankingLink, Spinner } from "@/components";
 import useGameRound from "@/hooks/use-game-round";
-import { useAuth, useGameStats } from "@/store/game-store";
-import { MOVE_DETAILS, RESULT_MESSAGES, RESULTS } from "@/utils/game-rules";
+import { useAuth, useGameMode, useGameStats } from "@/store/game-store";
+import {
+  GAME_MODE_MOVES,
+  MOVE_DETAILS,
+  RESULT_MESSAGES,
+  RESULTS,
+} from "@/utils/game-rules";
 
 import "./game.css";
 
@@ -53,8 +58,12 @@ const PlayerChoice = ({ title, move, animation, thinkingLabel }) => (
 const GamePage = () => {
   const { formatMessage } = useIntl();
   const { currentUser } = useAuth();
+  const { gameMode } = useGameMode();
   const { currentUserScore, addWin } = useGameStats();
-  const { round, isThinking, play } = useGameRound({ onWin: addWin });
+  const { round, isThinking, play } = useGameRound({
+    onWin: addWin,
+    mode: gameMode,
+  });
   const animations = round?.result ? ICON_ANIMATIONS[round.result] : {};
 
   if (!currentUser) {
@@ -73,11 +82,11 @@ const GamePage = () => {
       </p>
 
       <div className="game-page__actions">
-        {Object.entries(MOVE_DETAILS).map(([move, { icon, message }]) => (
+        {GAME_MODE_MOVES[gameMode].map((move) => (
           <ActionButton
             key={move}
-            icon={icon}
-            label={formatMessage(message)}
+            icon={MOVE_DETAILS[move].icon}
+            label={formatMessage(MOVE_DETAILS[move].message)}
             onClick={() => play(move)}
             disabled={isThinking}
           />

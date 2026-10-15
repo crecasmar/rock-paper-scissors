@@ -9,12 +9,26 @@
   @apply uppercase;
 }
 
+.ranking-page__columns {
+  @apply grid w-full max-w-240 grid-cols-1 sm:grid-cols-2;
+}
+
+/* The line between both columns: below the first one on small screens, beside it otherwise */
+.ranking-page__column {
+  @apply flex min-w-0 flex-col items-center gap-2 py-4 sm:px-4 sm:py-0;
+  @apply not-first:border-t not-first:border-border sm:not-first:border-t-0 sm:not-first:border-l;
+}
+
+.ranking-page__subtitle {
+  @apply mb-2;
+}
+
 .ranking-page__empty {
   @apply text-body;
 }
 
 .ranking-page__list {
-  @apply flex w-full max-w-120 flex-col gap-2 text-left;
+  @apply flex w-full flex-col gap-2 text-left;
 }
 
 .ranking-page__item {

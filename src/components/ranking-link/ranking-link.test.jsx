@@ -72,7 +72,7 @@ describe("RankingLink", () => {
   test("renders the Spanish translations", () => {
     const { unmount } = renderLink(["/home"], "es");
     expect(
-      screen.getByRole("link", { name: "Ver el ranking actual" })
+      screen.getByRole("link", { name: "Ver ranking" })
     ).toBeInTheDocument();
     unmount();
 

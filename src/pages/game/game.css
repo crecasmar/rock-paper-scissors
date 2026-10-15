@@ -9,7 +9,7 @@
 }
 
 .game-page__actions {
-  @apply flex flex-row items-center justify-center gap-6 sm:gap-10;
+  @apply flex flex-row flex-wrap items-center justify-center gap-6 sm:gap-10;
 }
 
 .game-page__control {

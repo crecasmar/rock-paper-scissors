@@ -2,7 +2,12 @@ import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 
 import useGameRound from "./use-game-round";
-import { BOT_THINKING_DELAY_MS, MOVES, RESULTS } from "@/utils/game-rules";
+import {
+  BOT_THINKING_DELAY_MS,
+  GAME_MODES,
+  MOVES,
+  RESULTS,
+} from "@/utils/game-rules";
 import { LOSE_VIBRATION_MS } from "@/utils/vibration";
 
 const waitForBot = () =>
@@ -150,6 +155,35 @@ describe("useGameRound", () => {
       MOVES.ROCK,
       MOVES.PAPER,
     ]);
+  });
+
+  test("the bot plays the expanded moves in expanded mode", () => {
+    Math.random.mockReturnValue(0.99);
+    const onWin = vi.fn();
+    const { result } = renderHook(() =>
+      useGameRound({ onWin, mode: GAME_MODES.EXPANDED })
+    );
+
+    act(() => result.current.play(MOVES.LIZARD));
+    waitForBot();
+
+    expect(result.current.round).toEqual({
+      id: 1,
+      playerMove: MOVES.LIZARD,
+      botMove: MOVES.SPOCK,
+      result: RESULTS.WIN,
+    });
+    expect(onWin).toHaveBeenCalledTimes(1);
+  });
+
+  test("the bot only plays classic moves by default", () => {
+    Math.random.mockReturnValue(0.99);
+    const { result } = renderHook(() => useGameRound());
+
+    act(() => result.current.play(MOVES.ROCK));
+    waitForBot();
+
+    expect(result.current.round.botMove).toBe(MOVES.SCISSORS);
   });
 
   test("gives every round a new id", () => {

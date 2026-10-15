@@ -166,9 +166,13 @@ describe("AppRoutes", () => {
         JSON.stringify({
           state: {
             currentUser: "Juan",
-            players: { Maria: { score: 3 }, Juan: { score: 5 } },
+            players: {
+              Maria: { classicScore: 3 },
+              Juan: { classicScore: 5, expandedScore: 2 },
+            },
+            gameMode: "classic",
           },
-          version: 0,
+          version: 1,
         })
       );
 
@@ -177,8 +181,8 @@ describe("AppRoutes", () => {
       const { result } = renderHook(() => useGameStats());
 
       expect(result.current.players).toEqual({
-        Maria: { score: 3 },
-        Juan: { score: 5 },
+        Maria: { classicScore: 3 },
+        Juan: { classicScore: 5, expandedScore: 2 },
       });
       expect(result.current.currentUserScore).toBe(5);
     });

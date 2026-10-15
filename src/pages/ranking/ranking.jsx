@@ -2,31 +2,31 @@ import { FormattedMessage } from "react-intl";
 
 import { RankingLink } from "@/components";
 import { useGameStats } from "@/store/game-store";
+import { GAME_MODE_MESSAGES, GAME_MODES } from "@/utils/game-rules";
 import { getPlayerRanking } from "@/utils/ranking";
 
 import "./ranking.css";
 
 /**
- * Ranking page: every registered player sorted by score.
+ * Players of one game mode sorted by score.
+ * @param {{ mode: string, players: Record<string, import("@/store/game-store").PlayerData> }} props
  */
-const RankingPage = () => {
-  const { players } = useGameStats();
-  const playerRanking = getPlayerRanking(players);
+const ModeRanking = ({ mode, players }) => {
+  const playerRanking = getPlayerRanking(players, mode);
+  const titleId = `ranking-title-${mode}`;
 
   return (
-    <main data-testid="ranking-page" className="ranking-page">
-      <RankingLink />
-
-      <h1 id="ranking-title" className="ranking-page__title">
-        <FormattedMessage id="pages.ranking.title" />
-      </h1>
+    <section className="ranking-page__column" aria-labelledby={titleId}>
+      <h2 id={titleId} className="ranking-page__subtitle">
+        <FormattedMessage {...GAME_MODE_MESSAGES[mode]} />
+      </h2>
 
       {playerRanking.length === 0 ? (
         <p className="ranking-page__empty">
           <FormattedMessage id="pages.ranking.empty" />
         </p>
       ) : (
-        <ol className="ranking-page__list" aria-labelledby="ranking-title">
+        <ol className="ranking-page__list" aria-labelledby={titleId}>
           {playerRanking.map(({ name, score, position, medal }) => (
             <li key={name} className="ranking-page__item">
               <span className="sr-only">
@@ -48,6 +48,30 @@ const RankingPage = () => {
           ))}
         </ol>
       )}
+    </section>
+  );
+};
+
+/**
+ * Ranking page: every registered player sorted by score,
+ * with one column for each game mode.
+ */
+const RankingPage = () => {
+  const { players } = useGameStats();
+
+  return (
+    <main data-testid="ranking-page" className="ranking-page">
+      <RankingLink />
+
+      <h1 className="ranking-page__title">
+        <FormattedMessage id="pages.ranking.title" />
+      </h1>
+
+      <div className="ranking-page__columns">
+        {Object.values(GAME_MODES).map((mode) => (
+          <ModeRanking key={mode} mode={mode} players={players} />
+        ))}
+      </div>
     </main>
   );
 };

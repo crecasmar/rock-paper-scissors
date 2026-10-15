@@ -5,15 +5,21 @@
   "components.nav-bar.greeting": "Hola {name}",
   "components.nav-bar.logout": "Cerrar sesión",
 
-  "components.ranking-link.see": "Ver el ranking actual",
+  "components.game-mode-selector.title": "Elige tu modo",
+
+  "components.ranking-link.see": "Ver ranking",
   "components.ranking-link.back": "Volver",
 
   "game.moves.rock": "Piedra",
   "game.moves.paper": "Papel",
   "game.moves.scissors": "Tijera",
+  "game.moves.lizard": "Lagarto",
+  "game.moves.spock": "Spock",
   "game.results.win": "¡Has ganado!",
   "game.results.lose": "¡Has perdido!",
   "game.results.tie": "¡Empate!",
+  "game.modes.classic": "Clásico",
+  "game.modes.expanded": "Extendido",
 
   "pages.home.title": "Crear nuevo jugador",
   "pages.home.name-label": "Nombre",
