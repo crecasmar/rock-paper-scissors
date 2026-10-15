@@ -67,24 +67,16 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
   });
 
-  test("renders the link to the ranking", () => {
+  test("does not render the ranking link, which lives in the navigation bar", () => {
     renderHome();
-    expect(
-      screen.getByRole("link", { name: "components.ranking-link.see" })
-    ).toHaveAttribute("href", "/ranking");
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
 
   describe("game mode", () => {
-    test("sits between the ranking link and the title", () => {
+    test("sits above the title", () => {
       renderHome();
 
-      const link = screen.getByRole("link", {
-        name: "components.ranking-link.see",
-      });
       const title = screen.getByRole("heading", { level: 1 });
-      expect(link.compareDocumentPosition(getModeGroup())).toBe(
-        Node.DOCUMENT_POSITION_FOLLOWING
-      );
       expect(getModeGroup().compareDocumentPosition(title)).toBe(
         Node.DOCUMENT_POSITION_FOLLOWING
       );

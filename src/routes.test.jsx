@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { act, renderHook } from "@testing-library/react";
-import { KEYS_LOCALE, render, screen } from "./utils/test-utils";
+import { KEYS_LOCALE, render, screen, within } from "./utils/test-utils";
 
 import { AppRoutes } from "./routes";
 import { useAuth } from "./store/game-store";
@@ -80,32 +80,52 @@ describe("AppRoutes", () => {
       expect(screen.getByTestId("home-page")).toBeInTheDocument();
     });
 
-    test("is reachable from the game, lists the player and goes back", async () => {
+    test("is reachable from the not found page and goes back to it", async () => {
       const user = userEvent.setup();
-      renderRoutes(AppRoutes, "/");
-      await registerPlayer(user, "Maria");
+      renderRoutes(AppRoutes, "/unknown");
 
       await user.click(
         screen.getByRole("link", { name: "components.ranking-link.see" })
       );
-      expect(screen.getByRole("listitem")).toHaveTextContent(
-        "pages.ranking.player-label 1 Maria 0"
-      );
+      expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
 
       await user.click(
         screen.getByRole("link", { name: "components.ranking-link.back" })
       );
-      expect(screen.getByTestId("game-page")).toBeInTheDocument();
+      expect(screen.getByTestId("not-found-page")).toBeInTheDocument();
+    });
+
+    test("is hidden while playing and lists the player once logged out", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/");
+      await registerPlayer(user, "Maria");
+
+      expect(screen.queryByRole("link")).not.toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("button", { name: "components.nav-bar.logout" })
+      );
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.see" })
+      );
+
+      expect(screen.getByRole("listitem")).toHaveTextContent(
+        "pages.ranking.player-label 1 Maria 0"
+      );
     });
   });
 
   describe("navigation bar", () => {
     test.each(["/home", "/unknown"])(
-      "shows only the app name on %s when no player is logged in",
+      "shows the app name and the ranking link on %s when no player is logged in",
       (path) => {
         renderRoutes(AppRoutes, path);
 
+        const banner = within(screen.getByRole("banner"));
         expect(screen.getByRole("banner")).toHaveTextContent("app-name");
+        expect(
+          banner.getByRole("link", { name: "components.ranking-link.see" })
+        ).toBeInTheDocument();
         expect(
           screen.queryByRole("button", { name: "components.nav-bar.logout" })
         ).not.toBeInTheDocument();

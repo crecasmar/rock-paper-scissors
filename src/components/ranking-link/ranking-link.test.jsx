@@ -69,6 +69,18 @@ describe("RankingLink", () => {
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
   });
 
+  test("keeps the classes added by the caller", () => {
+    render(<RankingLink className="nav-bar__action" />, {
+      initialPath: "/home",
+      locale: KEYS_LOCALE,
+    });
+
+    expect(screen.getByRole("link", { name: SEE })).toHaveClass(
+      "button button_secondary nav-bar__action",
+      { exact: true }
+    );
+  });
+
   test("renders the Spanish translations", () => {
     const { unmount } = renderLink(["/home"], "es");
     expect(

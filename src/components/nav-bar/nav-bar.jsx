@@ -2,11 +2,13 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import Button from "@/components/button/button";
 import { BUTTON_VARIANTS } from "@/components/button/button-variants";
+import RankingLink from "@/components/ranking-link/ranking-link";
 
 import "./nav-bar.css";
 
 /**
- * Navigation bar.
+ * Navigation bar. A logged in player can log out; otherwise it links to
+ * and from the ranking, which players can only see once they log out.
  * @param {{ userName?: string | null, onLogout?: () => void }} props
  */
 const NavBar = ({ userName, onLogout }) => {
@@ -29,14 +31,16 @@ const NavBar = ({ userName, onLogout }) => {
           )}
         </span>
 
-        {userName && (
+        {userName ? (
           <Button
             variant={BUTTON_VARIANTS.SECONDARY}
-            className="nav-bar__logout"
+            className="nav-bar__action"
             onClick={onLogout}
           >
             <FormattedMessage id="components.nav-bar.logout" />
           </Button>
+        ) : (
+          <RankingLink className="nav-bar__action" />
         )}
       </nav>
     </header>

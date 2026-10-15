@@ -87,12 +87,10 @@ describe("GamePage", () => {
       expect(screen.getByText(score(0))).toBeInTheDocument();
     });
 
-    test("shows the link to the ranking", () => {
+    test("does not show the link to the ranking", () => {
       renderGame();
 
-      expect(
-        screen.getByRole("link", { name: "components.ranking-link.see" })
-      ).toHaveAttribute("href", "/ranking");
+      expect(screen.queryByRole("link")).not.toBeInTheDocument();
     });
 
     test("shows the three move buttons enabled", () => {

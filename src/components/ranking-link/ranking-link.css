@@ -1,5 +1,0 @@
-@reference "@/index.css";
-
-.ranking-link {
-  @apply self-center;
-}

@@ -1,6 +1,5 @@
 import { FormattedMessage } from "react-intl";
 
-import { RankingLink } from "@/components";
 import { useGameStats } from "@/store/game-store";
 import { GAME_MODE_MESSAGES, GAME_MODES } from "@/utils/game-rules";
 import { getPlayerRanking } from "@/utils/ranking";
@@ -61,8 +60,6 @@ const RankingPage = () => {
 
   return (
     <main data-testid="ranking-page" className="ranking-page">
-      <RankingLink />
-
       <h1 className="ranking-page__title">
         <FormattedMessage id="pages.ranking.title" />
       </h1>

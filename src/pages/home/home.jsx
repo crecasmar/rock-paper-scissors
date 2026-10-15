@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { Button, GameModeSelector, RankingLink } from "@/components";
+import { Button, GameModeSelector } from "@/components";
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import { useAuth } from "@/store/game-store";
 import {
@@ -46,8 +46,6 @@ const HomePage = () => {
 
   return (
     <main data-testid="home-page" className="home-page">
-      <RankingLink />
-
       <GameModeSelector />
 
       <h1>

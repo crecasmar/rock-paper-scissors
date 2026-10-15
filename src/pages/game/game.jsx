@@ -1,7 +1,7 @@
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { ActionButton, RankingLink, Spinner } from "@/components";
+import { ActionButton, Spinner } from "@/components";
 import useGameRound from "@/hooks/use-game-round";
 import { useAuth, useGameMode, useGameStats } from "@/store/game-store";
 import {
@@ -72,8 +72,6 @@ const GamePage = () => {
 
   return (
     <main data-testid="game-page" className="game-page">
-      <RankingLink />
-
       <p className="game-page__score" aria-live="polite">
         <FormattedMessage
           id="pages.game.score"

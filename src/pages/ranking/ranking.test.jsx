@@ -46,7 +46,7 @@ describe("RankingPage", () => {
     localStorage.clear();
   });
 
-  test("renders the uppercase title and the go back link", async () => {
+  test("renders the uppercase title without the go back link", async () => {
     await renderRanking();
 
     const title = screen.getByRole("heading", {
@@ -54,9 +54,8 @@ describe("RankingPage", () => {
       name: "pages.ranking.title",
     });
     expect(title).toHaveClass("ranking-page__title");
-    expect(
-      screen.getByRole("link", { name: "components.ranking-link.back" })
-    ).toBeInTheDocument();
+    // The go back link lives in the navigation bar
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
 
   test("renders a column for each game mode, classic first", async () => {

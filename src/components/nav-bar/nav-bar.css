@@ -12,6 +12,6 @@
   @apply truncate font-medium text-heading;
 }
 
-.nav-bar__logout {
+.nav-bar__action {
   @apply shrink-0;
 }
