@@ -8,7 +8,7 @@ import "./game-mode-title.css";
 
 /**
  * Title with the game mode being played and an info button whose tooltip
- * shows the rules of that mode. The tooltip opens on hover, focus or tap,
+ * introduces and lists the rules of that mode. The tooltip opens on hover, focus or tap,
  * and closes when the pointer or the focus leave, or with Escape.
  * @param {{ mode: string }} props - One of GAME_MODES
  */
@@ -36,10 +36,7 @@ const GameModeTitle = ({ mode }) => {
         <button
           type="button"
           className="game-mode-title__info"
-          aria-label={formatMessage(
-            { id: "game.rules.show" },
-            { mode: modeName }
-          )}
+          aria-label={formatMessage({ id: "game.rules.open" })}
           aria-describedby={tooltipId}
           aria-expanded={isOpen}
           onClick={open}
@@ -57,7 +54,7 @@ const GameModeTitle = ({ mode }) => {
           data-open={isOpen}
         >
           <p className="game-mode-title__tooltip-title">
-            <FormattedMessage id="game.rules.title" />
+            <FormattedMessage id="game.rules.show" values={{ mode }} />
           </p>
           <ul className="game-mode-title__rule-list">
             {GAME_MODE_RULES[mode].map((rule) => (

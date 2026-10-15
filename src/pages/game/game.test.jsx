@@ -92,7 +92,7 @@ describe("GamePage", () => {
       );
       expect(
         screen.getByRole("button", {
-          name: "game.rules.show game.modes.classic",
+          name: "game.rules.open",
         })
       ).toBeInTheDocument();
     });
