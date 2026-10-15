@@ -13,7 +13,6 @@ export default defineConfig({
 
   use: {
     baseURL: BASE_URL,
-    // The app picks its language from the browser
     locale: "en-US",
     trace: "on-first-retry",
     screenshot: "only-on-failure",

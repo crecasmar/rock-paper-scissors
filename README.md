@@ -58,9 +58,13 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 ## 🎮 Funcionalidades
 
 - **Registro de jugador**: pantalla inicial para introducir el nombre de tu jugador (siempre que sea válido).
-- **Partida contra el bot**: eliges piedra, papel o tijera y el bot "piensa" durante 1 segundo antes de responder.
+- **Modos de juego**: antes de entrar eliges el modo con el que vas a jugar:
+  - **Clásico**: piedra, papel o tijera.
+  - **Extendido**: piedra, papel, tijera, lagarto, Spock.
+- **Partida contra el bot**: eliges tu jugada entre las del modo elegido y el bot "piensa" durante 1 segundo antes de responder.
 - **Bot impredecible**: el bot nunca repite la misma jugada dos veces seguidas.
-- **Puntuación persistente**: cada victoria suma un punto. Las puntuaciones de todos los jugadores se guardan, así que si vuelves con el mismo nombre recuperas tu marcador.
+- **Puntuación persistente**: cada victoria suma un punto en el modo en el que estés jugando.
+- **Ranking**: desde la barra de navegación (con la sesión cerrada) puedes ver la clasificación de todos los jugadores.
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.
 - **Multidioma**: español e inglés. El idioma se elige automáticamente según el navegador (inglés por defecto).
 - **PWA instalable y offline**: las nuevas versiones se descargan en segundo plano y se usan en la siguiente visita, sin avisos ni recargas a mitad de partida.
@@ -91,6 +95,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 - **[Vitest](https://vitest.dev/)** + **[Testing Library](https://testing-library.com/)** + **jsdom**: tests unitarios y de componentes.
 - **Cobertura** con Istanbul (informes en `coverage/`).
 - **ESLint** (con reglas de React Hooks y React Refresh) y **Prettier** para el formato.
+- **[Playwright](https://playwright.dev/)**: tests end-to-end en Chromium (carpeta `e2e/`) que recorren la app como lo haría un usuario en diferentes rutas.
 - **Husky** + **lint-staged**: antes de cada commit se ejecutan ESLint y Prettier sobre los archivos modificados.
 
 ---
