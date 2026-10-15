@@ -103,15 +103,19 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 ## 📁 Estructura del proyecto
 
 ```
+e2e/                  # Tests end-to-end con Playwright
+├── helpers/          # Datos y utilidades compartidos (modos, reglas, jugadores de prueba)
+└── *.spec.js         # Un recorrido de usuario por archivo (ronda clásica, extendida, ranking, puntuación)
 src/
-├── components/   # Componentes reutilizables (botones, barra de navegación, layout, spinner)
-├── hooks/        # Hooks propios (lógica de cada ronda, valor con retardo)
-├── locales/      # Traducciones en español e inglés
-├── pages/        # Páginas: home, game y not-found
-├── store/        # Estado global con Zustand
-├── utils/        # Reglas del juego y validaciones
-├── app.jsx       # Proveedores (idioma, router)
-└── routes.jsx    # Definición de rutas
+├── components/       # Componentes reutilizables (botones, barra de navegación, selector de modo, layout, spinner)
+├── hooks/            # Hooks propios (lógica de cada ronda, valor con retardo)
+├── locales/          # Traducciones en español e inglés
+├── pages/            # Páginas: home, game, ranking y not-found
+├── store/            # Estado global con Zustand
+├── utils/            # Reglas del juego, ranking y validaciones
+├── app.jsx           # Proveedores (idioma, router)
+└── routes.jsx        # Definición de rutas
+playwright.config.js  # Configuración de Playwright (arranca el servidor de desarrollo)
 ```
 
 Hay alias de importación configurados para rutas más limpias: `@/` apunta a `src/` (también `@components`, `@pages`, `@store`, `@utils`…).
@@ -122,7 +126,9 @@ Hay alias de importación configurados para rutas más limpias: `@/` apunta a `s
 
 El proyecto usa **GitHub Actions**:
 
-- **Build** (`.github/workflows/build.yml`): en cada _pull request_ y en cada push a `main` ejecuta los tests con cobertura y lanza un análisis de **SonarQube Cloud**.
+- **Build** (`.github/workflows/build.yml`): en cada _pull request_ y en cada push a `main` ejecuta dos jobs en paralelo:
+  - **SonarQube**: ejecuta los tests con cobertura y lanza un análisis de **SonarQube Cloud**.
+  - **E2E tests**: instala Chromium y ejecuta los tests end-to-end de Playwright. El informe HTML se sube como artefacto (`playwright-report`) para poder revisarlo si algo falla.
 - **CI/CD Pipeline** (`.github/workflows/deploy.yml`): en cada push a `main` pasa el linter y los tests, compila la app y la publica en **GitHub Pages**.
 
 > El build copia `index.html` como `404.html` para que, al recargar una ruta como `/game` en GitHub Pages, la app cargue correctamente.
