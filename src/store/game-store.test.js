@@ -332,6 +332,20 @@ describe("game-store", () => {
       );
     });
 
+    test("start the score of a mode chosen after logging in", () => {
+      const { result } = renderStore();
+
+      act(() => result.current.auth.login("maria"));
+      act(() => result.current.mode.setGameMode(GAME_MODES.EXPANDED));
+      play(result, RESULTS.WIN);
+
+      expect(result.current.stats.players.maria).toEqual({
+        classicScore: 0,
+        expandedScore: 1,
+        expandedStats: winsInARow(1),
+      });
+    });
+
     test("are empty after logout", () => {
       const { result } = renderStore();
 
@@ -388,6 +402,58 @@ describe("game-store", () => {
       expect(result.current.stats.currentUserStats).toEqual(
         statsWith({ wins: 3, losses: 4 })
       );
+    });
+
+    test("gives a score of 0 to players saved before game modes without one", async () => {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          state: { currentUser: null, players: { maria: {} } },
+          version: 0,
+        })
+      );
+      ({ useAuth, useGameMode, useGameStats } = await loadStore());
+
+      const { result } = renderStore();
+
+      expect(result.current.stats.players).toEqual({
+        maria: { classicScore: 0, classicStats: statsWith() },
+      });
+    });
+
+    test.each([0, 1])(
+      "starts with no players when version %i saved none",
+      async (version) => {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ state: { currentUser: null }, version })
+        );
+        ({ useAuth, useGameMode, useGameStats } = await loadStore());
+
+        const { result } = renderStore();
+
+        expect(result.current.stats.players).toEqual({});
+      }
+    );
+
+    test("keeps the data saved by a newer version of the app as it is", async () => {
+      const players = { maria: { classicScore: 2 } };
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          state: {
+            currentUser: "maria",
+            gameMode: GAME_MODES.CLASSIC,
+            players,
+          },
+          version: 99,
+        })
+      );
+      ({ useAuth, useGameMode, useGameStats } = await loadStore());
+
+      const { result } = renderStore();
+
+      expect(result.current.stats.players).toEqual(players);
     });
 
     test("turns the scores saved before statistics into wins", async () => {

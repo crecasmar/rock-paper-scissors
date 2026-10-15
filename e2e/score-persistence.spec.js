@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 import {
+  expectStatistics,
   forceBotToPlayRock,
+  openStatistics,
   GAME_MODES,
   RESULT_TEXTS,
   roundChoice,
@@ -12,9 +14,19 @@ import {
 // and run in order: if one fails, the following ones are skipped.
 test.describe.configure({ mode: "serial" });
 
-test.describe("Keep the score after logging in again", () => {
+test.describe("Keep the score and statistics after logging in again", () => {
   const name = uniquePlayerName();
   const mode = GAME_MODES.classic;
+
+  // One win followed by one loss
+  const EXPECTED_STATS = {
+    played: 2,
+    won: 1,
+    lost: 1,
+    drawn: 0,
+    longestStreak: 1,
+    currentStreak: 0,
+  };
 
   /** @type {import("@playwright/test").Page} */
   let page;
@@ -79,6 +91,22 @@ test.describe("Keep the score after logging in again", () => {
     await expect(page.getByText("Score: 1")).toBeVisible();
   });
 
+  test("choose Rock and see the result: a loss", async () => {
+    // The bot never repeats its move, so it answers Paper this time
+    await page.getByRole("button", { name: "Rock", exact: true }).click();
+
+    await expect(roundChoice(page, "Bot:")).toHaveText("Paper");
+    await expect(page.locator("output")).toHaveText(RESULT_TEXTS.lose);
+    await expect(page.getByText("Score: 1")).toBeVisible();
+  });
+
+  test("see the statistics of both rounds", async () => {
+    await openStatistics(page);
+
+    // The loss ended the winning streak, but the longest one is kept
+    await expectStatistics(page, EXPECTED_STATS);
+  });
+
   test("log out", async () => {
     await page.getByRole("button", { name: "Log out" }).click();
 
@@ -100,17 +128,23 @@ test.describe("Keep the score after logging in again", () => {
     await expect(page.getByText(`Hello ${name}`)).toBeVisible();
   });
 
-  test("see the score is still 1", async () => {
-    // The player gets back the point won before logging out
+  test("see the score and statistics are kept", async () => {
+    // The player gets back the point and the rounds played before logging out
     await expect(page.getByText("Score: 1")).toBeVisible();
+
+    await openStatistics(page);
+    await expectStatistics(page, EXPECTED_STATS);
   });
 
-  test("see the score is still 1 after reloading the page", async () => {
+  test("see the score and statistics are kept after reloading the page", async () => {
     await page.reload();
 
-    // The player stays logged in and the score is kept in the browser
+    // The player stays logged in and everything is kept in the browser
     await expect(page).toHaveURL(/\/game$/);
     await expect(page.getByText(`Hello ${name}`)).toBeVisible();
     await expect(page.getByText("Score: 1")).toBeVisible();
+
+    await openStatistics(page);
+    await expectStatistics(page, EXPECTED_STATS);
   });
 });
