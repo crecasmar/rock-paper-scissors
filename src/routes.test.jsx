@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { act, renderHook } from "@testing-library/react";
-import { KEYS_LOCALE, render, screen } from "./utils/test-utils";
+import { KEYS_LOCALE, render, screen, within } from "./utils/test-utils";
 
 import { AppRoutes } from "./routes";
 import { useAuth } from "./store/game-store";
@@ -59,13 +59,73 @@ describe("AppRoutes", () => {
     );
   });
 
+  describe("ranking", () => {
+    test("renders the ranking page when the path is /ranking", () => {
+      renderRoutes(AppRoutes, "/ranking");
+      expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
+    });
+
+    test("is reachable from home and goes back to it", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/home");
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.see" })
+      );
+      expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.back" })
+      );
+      expect(screen.getByTestId("home-page")).toBeInTheDocument();
+    });
+
+    test("is reachable from the not found page and goes back to it", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/unknown");
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.see" })
+      );
+      expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.back" })
+      );
+      expect(screen.getByTestId("not-found-page")).toBeInTheDocument();
+    });
+
+    test("is hidden while playing and lists the player once logged out", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/");
+      await registerPlayer(user, "Maria");
+
+      expect(screen.queryByRole("link")).not.toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("button", { name: "components.nav-bar.logout" })
+      );
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.see" })
+      );
+
+      expect(screen.getByRole("listitem")).toHaveTextContent(
+        "pages.ranking.player-label 1 Maria 0"
+      );
+    });
+  });
+
   describe("navigation bar", () => {
     test.each(["/home", "/unknown"])(
-      "shows only the app name on %s when no player is logged in",
+      "shows the app name and the ranking link on %s when no player is logged in",
       (path) => {
         renderRoutes(AppRoutes, path);
 
+        const banner = within(screen.getByRole("banner"));
         expect(screen.getByRole("banner")).toHaveTextContent("app-name");
+        expect(
+          banner.getByRole("link", { name: "components.ranking-link.see" })
+        ).toBeInTheDocument();
         expect(
           screen.queryByRole("button", { name: "components.nav-bar.logout" })
         ).not.toBeInTheDocument();
@@ -126,9 +186,13 @@ describe("AppRoutes", () => {
         JSON.stringify({
           state: {
             currentUser: "Juan",
-            players: { Maria: { score: 3 }, Juan: { score: 5 } },
+            players: {
+              Maria: { classicScore: 3 },
+              Juan: { classicScore: 5, expandedScore: 2 },
+            },
+            gameMode: "classic",
           },
-          version: 0,
+          version: 1,
         })
       );
 
@@ -136,9 +200,9 @@ describe("AppRoutes", () => {
       const { useGameStats } = await import("./store/game-store");
       const { result } = renderHook(() => useGameStats());
 
-      expect(result.current.players).toEqual({
-        Maria: { score: 3 },
-        Juan: { score: 5 },
+      expect(result.current.players).toMatchObject({
+        Maria: { classicScore: 3 },
+        Juan: { classicScore: 5, expandedScore: 2 },
       });
       expect(result.current.currentUserScore).toBe(5);
     });

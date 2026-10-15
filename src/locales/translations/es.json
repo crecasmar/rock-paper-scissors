@@ -1,22 +1,34 @@
 {
-  "app-name": "Piedra Papel Tijeras",
+  "app-name": "Piedra, Papel o Tijera",
 
   "components.nav-bar.label": "Navegación principal",
   "components.nav-bar.greeting": "Hola {name}",
   "components.nav-bar.logout": "Cerrar sesión",
 
-  "components.reload-toast.offline-ready": "¡El juego está listo para jugar sin conexión!",
-  "components.reload-toast.new-version": "Hay una nueva versión del juego. ¿Quieres actualizar ahora?",
-  "components.reload-toast.update": "Actualizar",
-  "components.reload-toast.later": "Luego",
-  "components.reload-toast.close": "Cerrar",
+  "components.game-mode-selector.title": "Elige tu modo de juego",
+
+  "components.player-stats.toggle": "Mis estadísticas",
+  "components.player-stats.title": "Modo {mode}",
+  "components.player-stats.played": "Partidas jugadas",
+  "components.player-stats.wins": "Ganadas",
+  "components.player-stats.losses": "Perdidas",
+  "components.player-stats.ties": "Empatadas",
+  "components.player-stats.longest-streak": "Mejor racha de victorias",
+  "components.player-stats.current-streak": "Racha actual de victorias",
+
+  "components.ranking-link.see": "Ver ranking",
+  "components.ranking-link.back": "Volver",
 
   "game.moves.rock": "Piedra",
   "game.moves.paper": "Papel",
-  "game.moves.scissors": "Tijeras",
+  "game.moves.scissors": "Tijera",
+  "game.moves.lizard": "Lagarto",
+  "game.moves.spock": "Spock",
   "game.results.win": "¡Has ganado!",
   "game.results.lose": "¡Has perdido!",
   "game.results.tie": "¡Empate!",
+  "game.modes.classic": "Clásico",
+  "game.modes.expanded": "Extendido",
 
   "pages.home.title": "Crear nuevo jugador",
   "pages.home.name-label": "Nombre",
@@ -27,6 +39,11 @@
   "pages.game.you": "Tú:",
   "pages.game.bot": "Bot:",
   "pages.game.bot-thinking": "El bot está eligiendo su jugada",
+
+  "pages.ranking.title": "Ranking",
+  "pages.ranking.empty": "No hay puntuaciones de jugadores registradas para clasificar",
+  "pages.ranking.score": "{score} pts",
+  "pages.ranking.player-label": "Posición {position}: {name}, {score, plural, one {# punto} other {# puntos}}",
 
   "pages.not-found.title": "Página no encontrada",
   "pages.not-found.back": "Volver"

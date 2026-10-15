@@ -1,0 +1,22 @@
+@reference "@/index.css";
+
+.button {
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-center font-semibold shadow;
+  @apply focus:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+  @apply disabled:cursor-not-allowed disabled:opacity-40;
+  @apply transition duration-300 ease-in-out motion-reduce:transition-none;
+}
+
+.button__icon {
+  @apply size-[1.25em] shrink-0;
+}
+
+.button_primary {
+  @apply bg-accent px-4 py-2.5 tracking-wider text-white;
+}
+
+.button_secondary {
+  @apply border border-surface-strong px-3 py-1.5 text-sm text-heading;
+  @apply hover:border-accent hover:text-accent;
+  @apply disabled:hover:border-border disabled:hover:text-heading;
+}

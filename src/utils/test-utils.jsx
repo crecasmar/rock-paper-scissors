@@ -12,12 +12,18 @@ const DEFAULT_LOCALE = "en";
  */
 export const KEYS_LOCALE = "keys";
 
-const PLACEHOLDER_PATTERN = /\{(\w+)\}/g;
+// Matches simple ({score}) and formatted ({score, plural, ...}) placeholders
+const PLACEHOLDER_PATTERN = /\{(\w+)[,}]/g;
 
 const keyMessages = Object.fromEntries(
   Object.entries(supportedLocales[DEFAULT_LOCALE]).map(([id, message]) => [
     id,
-    [id, ...(message.match(PLACEHOLDER_PATTERN) ?? [])].join(" "),
+    [
+      id,
+      ...[...message.matchAll(PLACEHOLDER_PATTERN)].map(
+        ([, name]) => `{${name}}`
+      ),
+    ].join(" "),
   ])
 );
 

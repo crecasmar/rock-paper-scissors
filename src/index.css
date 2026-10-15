@@ -6,7 +6,7 @@
   --bg: #fff;
   --bg-strong: #f1eff4;
   --border: #e5e4e7;
-  --accent: #aa3bff;
+  --accent: oklch(74.6% 0.16 232.661);
 
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
@@ -33,7 +33,7 @@
     --bg: #16171d;
     --bg-strong: #0e0f13;
     --border: #2e303a;
-    --accent: #c084fc;
+    --accent: oklch(74.6% 0.16 232.661);
   }
 }
 
@@ -42,7 +42,6 @@ body {
 }
 
 #root {
-  width: 1126px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;

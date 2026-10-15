@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { Button, GameModeSelector } from "@/components";
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import { useAuth } from "@/store/game-store";
 import {
@@ -14,8 +15,9 @@ import {
 import "./home.css";
 
 /**
- * Home page: registers a new player and sends them to the game.
- * If the player exists in the store, it goes straight to the game.
+ * Home page: chooses the game mode, registers a new player
+ * and sends them to the game. If the player exists in the store,
+ * it goes straight to the game.
  */
 const HomePage = () => {
   const { formatMessage } = useIntl();
@@ -44,6 +46,8 @@ const HomePage = () => {
 
   return (
     <main data-testid="home-page" className="home-page">
+      <GameModeSelector />
+
       <h1>
         <FormattedMessage id="pages.home.title" />
       </h1>
@@ -81,13 +85,13 @@ const HomePage = () => {
           )}
         </p>
 
-        <button
+        <Button
           type="submit"
           className="home-page__button"
           disabled={!nameIsValid}
         >
           {formatMessage({ id: "pages.home.join" }).toUpperCase()}
-        </button>
+        </Button>
       </form>
     </main>
   );

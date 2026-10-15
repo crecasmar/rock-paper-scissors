@@ -1,6 +1,6 @@
-# ✊🖐️✌️ Piedra, Papel o Tijeras
+# ✊🖐️✌️ Piedra, Papel o Tijera
 
-Juego clásico de **Piedra, Papel o Tijeras** contra la máquina, hecho con React y Vite.
+Juego clásico de **Piedra, Papel o Tijera** contra la máquina, hecho con React y Vite.
 
 Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suya. Si ganas, sumarás un punto. Tu puntuación se guarda en el navegador, así que puedes cerrar la página y seguir jugando offline.
 
@@ -41,26 +41,34 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 
 ### Scripts disponibles
 
-| Comando                 | Qué hace                                                         |
-| ----------------------- | ---------------------------------------------------------------- |
-| `npm run dev`           | Servidor de desarrollo con recarga en caliente                   |
-| `npm run build`         | Genera la versión de producción en `dist/`                       |
-| `npm run preview`       | Sirve en local la versión ya compilada (útil para probar la PWA) |
-| `npm test`              | Ejecuta los tests en modo _watch_                                |
-| `npm run test:coverage` | Ejecuta los tests una vez y genera el informe de cobertura       |
-| `npm run lint`          | Revisa el código con ESLint                                      |
+| Comando                   | Qué hace                                                         |
+| ------------------------- | ---------------------------------------------------------------- |
+| `npm run dev`             | Servidor de desarrollo con recarga en caliente                   |
+| `npm run build`           | Genera la versión de producción en `dist/`                       |
+| `npm run preview`         | Sirve en local la versión ya compilada (útil para probar la PWA) |
+| `npm test`                | Ejecuta los tests en modo _watch_                                |
+| `npm run test:coverage`   | Ejecuta los tests una vez y genera el informe de cobertura       |
+| `npm run test:e2e`        | Ejecuta los tests end-to-end con Playwright                      |
+| `npm run test:e2e:ui`     | Abre los tests end-to-end en el modo interactivo de Playwright   |
+| `npm run test:e2e:report` | Abre el informe HTML de la última ejecución end-to-end           |
+| `npm run lint`            | Revisa el código con ESLint                                      |
 
 ---
 
 ## 🎮 Funcionalidades
 
 - **Registro de jugador**: pantalla inicial para introducir el nombre de tu jugador (siempre que sea válido).
-- **Partida contra el bot**: eliges piedra, papel o tijeras y el bot "piensa" durante 1 segundo antes de responder.
+- **Modos de juego**: antes de entrar eliges el modo con el que vas a jugar:
+  - **Clásico**: piedra, papel o tijera.
+  - **Extendido**: piedra, papel, tijera, lagarto, Spock.
+- **Partida contra el bot**: eliges tu jugada entre las del modo elegido y el bot "piensa" durante 1 segundo antes de responder.
 - **Bot impredecible**: el bot nunca repite la misma jugada dos veces seguidas.
-- **Puntuación persistente**: cada victoria suma un punto. Las puntuaciones de todos los jugadores se guardan, así que si vuelves con el mismo nombre recuperas tu marcador.
+- **Puntuación y estadísticas persistente**: cada victoria suma un punto en el modo en el que estés jugando y además puedes ver las estadísticas de tus partidas.
+- **Ranking**: desde la barra de navegación (con la sesión cerrada) puedes ver la clasificación de todos los jugadores.
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.
 - **Multidioma**: español e inglés. El idioma se elige automáticamente según el navegador (inglés por defecto).
-- **PWA instalable y offline**: un aviso indica cuándo el juego está listo para usarse sin conexión y cuándo hay una nueva versión disponible.
+- **PWA instalable y offline**: las nuevas versiones se descargan en segundo plano y se usan en la siguiente visita, sin avisos ni recargas a mitad de partida.
+- **Modo claro y oscuro**: utiliza la aplicación en el modo favorito de tu navegador.
 
 ---
 
@@ -88,6 +96,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 - **[Vitest](https://vitest.dev/)** + **[Testing Library](https://testing-library.com/)** + **jsdom**: tests unitarios y de componentes.
 - **Cobertura** con Istanbul (informes en `coverage/`).
 - **ESLint** (con reglas de React Hooks y React Refresh) y **Prettier** para el formato.
+- **[Playwright](https://playwright.dev/)**: tests end-to-end en Chromium (carpeta `e2e/`) que recorren la app como lo haría un usuario en diferentes rutas.
 - **Husky** + **lint-staged**: antes de cada commit se ejecutan ESLint y Prettier sobre los archivos modificados.
 
 ---
@@ -95,15 +104,19 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 ## 📁 Estructura del proyecto
 
 ```
+e2e/                  # Tests end-to-end con Playwright
+├── helpers/          # Datos y utilidades compartidos (modos, reglas, jugadores de prueba)
+└── *.spec.js         # Un recorrido de usuario por archivo (ronda clásica, extendida, ranking, puntuación)
 src/
-├── components/   # Componentes reutilizables (botones, barra de navegación, layout, spinner, aviso de PWA)
-├── hooks/        # Hooks propios (lógica de cada ronda, valor con retardo)
-├── locales/      # Traducciones en español e inglés
-├── pages/        # Páginas: home, game y not-found
-├── store/        # Estado global con Zustand
-├── utils/        # Reglas del juego y validaciones
-├── app.jsx       # Proveedores (idioma, router) y aviso de PWA
-└── routes.jsx    # Definición de rutas
+├── components/       # Componentes reutilizables (botones, barra de navegación, selector de modo, layout, spinner)
+├── hooks/            # Hooks propios (lógica de cada ronda, valor con retardo)
+├── locales/          # Traducciones en español e inglés
+├── pages/            # Páginas: home, game, ranking y not-found
+├── store/            # Estado global con Zustand
+├── utils/            # Reglas del juego, ranking y validaciones
+├── app.jsx           # Proveedores (idioma, router)
+└── routes.jsx        # Definición de rutas
+playwright.config.js  # Configuración de Playwright (arranca el servidor de desarrollo)
 ```
 
 Hay alias de importación configurados para rutas más limpias: `@/` apunta a `src/` (también `@components`, `@pages`, `@store`, `@utils`…).
@@ -114,7 +127,9 @@ Hay alias de importación configurados para rutas más limpias: `@/` apunta a `s
 
 El proyecto usa **GitHub Actions**:
 
-- **Build** (`.github/workflows/build.yml`): en cada _pull request_ y en cada push a `main` ejecuta los tests con cobertura y lanza un análisis de **SonarQube Cloud**.
+- **Build** (`.github/workflows/build.yml`): en cada _pull request_ y en cada push a `main` ejecuta dos jobs en paralelo:
+  - **SonarQube**: ejecuta los tests con cobertura y lanza un análisis de **SonarQube Cloud**.
+  - **E2E tests**: instala Chromium y ejecuta los tests end-to-end de Playwright. El informe HTML se sube como artefacto (`playwright-report`) para poder revisarlo si algo falla.
 - **CI/CD Pipeline** (`.github/workflows/deploy.yml`): en cada push a `main` pasa el linter y los tests, compila la app y la publica en **GitHub Pages**.
 
 > El build copia `index.html` como `404.html` para que, al recargar una ruta como `/game` en GitHub Pages, la app cargue correctamente.

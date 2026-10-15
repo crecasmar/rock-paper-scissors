@@ -5,18 +5,30 @@
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
-  "components.reload-toast.offline-ready": "The game is ready to play offline!",
-  "components.reload-toast.new-version": "A new version of the game is available. Do you want to update now?",
-  "components.reload-toast.update": "Update",
-  "components.reload-toast.later": "Later",
-  "components.reload-toast.close": "Close",
+  "components.game-mode-selector.title": "Choose your game mode",
+
+  "components.player-stats.toggle": "My statistics",
+  "components.player-stats.title": "{mode} mode",
+  "components.player-stats.played": "Games played",
+  "components.player-stats.wins": "Won",
+  "components.player-stats.losses": "Lost",
+  "components.player-stats.ties": "Drawn",
+  "components.player-stats.longest-streak": "Longest winning streak",
+  "components.player-stats.current-streak": "Current winning streak",
+
+  "components.ranking-link.see": "See ranking",
+  "components.ranking-link.back": "Go back",
 
   "game.moves.rock": "Rock",
   "game.moves.paper": "Paper",
   "game.moves.scissors": "Scissors",
+  "game.moves.lizard": "Lizard",
+  "game.moves.spock": "Spock",
   "game.results.win": "You won!",
   "game.results.lose": "You lost!",
   "game.results.tie": "Tie!",
+  "game.modes.classic": "Classic",
+  "game.modes.expanded": "Expanded",
 
   "pages.home.title": "Create new player",
   "pages.home.name-label": "Name",
@@ -27,6 +39,11 @@
   "pages.game.you": "You:",
   "pages.game.bot": "Bot:",
   "pages.game.bot-thinking": "The bot is choosing its move",
+
+  "pages.ranking.title": "Ranking",
+  "pages.ranking.empty": "There are no player's scores registered to rank",
+  "pages.ranking.score": "{score} pts",
+  "pages.ranking.player-label": "Position {position}: {name}, {score, plural, one {# point} other {# points}}",
 
   "pages.not-found.title": "Page not found",
   "pages.not-found.back": "Go back"

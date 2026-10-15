@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router";
 import { IntlProvider } from "react-intl";
-import { ReloadToast } from "./components";
 import { supportedLocales } from "./locales";
 import { AppRoutes } from "./routes";
 
@@ -13,7 +12,6 @@ const Application = () => (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AppRoutes />
     </BrowserRouter>
-    <ReloadToast />
   </IntlProvider>
 );
 

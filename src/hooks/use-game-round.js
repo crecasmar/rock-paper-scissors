@@ -2,10 +2,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   BOT_THINKING_DELAY_MS,
+  DEFAULT_GAME_MODE,
   getRoundResult,
   pickBotMove,
   RESULTS,
 } from "@/utils/game-rules";
+import { LOSE_VIBRATION_MS, vibrate } from "@/utils/vibration";
 
 /**
  * @typedef {Object} Round
@@ -16,22 +18,27 @@ import {
  */
 
 /**
- * Runs rock-paper-scissors rounds against the bot.
+ * Runs rock-paper-scissors rounds of the given game mode against the bot.
  * The bot answers after BOT_THINKING_DELAY_MS, and new moves are ignored
  * until the current round is resolved.
- * @param {{ onWin?: () => void }} [options]
+ * @param {{ onResult?: (result: string) => void, mode?: string }} [options]
  * @returns {{ round: Round | null, isThinking: boolean, play: (move: string) => void }}
  */
-const useGameRound = ({ onWin } = {}) => {
+const useGameRound = ({ onResult, mode = DEFAULT_GAME_MODE } = {}) => {
   const [round, setRound] = useState(null);
   const lastBotMoveRef = useRef(null);
   const timeoutRef = useRef(null);
   const roundIdRef = useRef(0);
-  const onWinRef = useRef(onWin);
+  const onResultRef = useRef(onResult);
+  const modeRef = useRef(mode);
 
   useEffect(() => {
-    onWinRef.current = onWin;
-  }, [onWin]);
+    onResultRef.current = onResult;
+  }, [onResult]);
+
+  useEffect(() => {
+    modeRef.current = mode;
+  }, [mode]);
 
   useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
@@ -45,12 +52,17 @@ const useGameRound = ({ onWin } = {}) => {
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null;
 
-      const botMove = pickBotMove(lastBotMoveRef.current);
+      const botMove = pickBotMove(
+        lastBotMoveRef.current,
+        Math.random,
+        modeRef.current
+      );
       lastBotMoveRef.current = botMove;
       const result = getRoundResult(playerMove, botMove);
 
       setRound({ id, playerMove, botMove, result });
-      if (result === RESULTS.WIN) onWinRef.current?.();
+      onResultRef.current?.(result);
+      if (result === RESULTS.LOSE) vibrate(LOSE_VIBRATION_MS);
     }, BOT_THINKING_DELAY_MS);
   }, []);
 

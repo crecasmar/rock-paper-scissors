@@ -2,6 +2,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import { configDefaults } from "vitest/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -14,8 +15,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: "prompt",
-      injectRegister: false,
+      registerType: "autoUpdate",
+      injectRegister: "script-defer",
 
       pwaAssets: {
         disabled: false,
@@ -23,7 +24,7 @@ export default defineConfig({
       },
 
       manifest: {
-        name: "Piedra Papel Tijera",
+        name: "Rock, Paper, Scissors",
         short_name: "RockPaperScissors",
         description: "Rock paper scissors project",
         theme_color: "#ffffff",
@@ -33,6 +34,7 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
+        skipWaiting: true,
       },
 
       devOptions: {
@@ -46,6 +48,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
+    // e2e/ holds the Playwright tests
+    exclude: [...configDefaults.exclude, "e2e/**"],
     coverage: {
       provider: "istanbul",
       reporter: ["text", "html", "lcov"],

@@ -84,9 +84,9 @@ describe("Layout", () => {
     renderLayout("es");
 
     expect(screen.getByRole("banner")).toHaveTextContent(
-      "Piedra Papel Tijeras"
+      "Piedra, Papel o Tijera"
     );
-    expect(document.title).toBe("Piedra Papel Tijeras");
+    expect(document.title).toBe("Piedra, Papel o Tijera");
     expect(document.documentElement.lang).toBe("es");
   });
 });
