@@ -1,0 +1,34 @@
+@reference "@/index.css";
+
+.ranking-page {
+  @apply flex grow flex-col items-center justify-start px-4 pt-4 pb-8;
+}
+
+/* Uppercased with CSS so screen readers read the word, not its letters */
+.ranking-page__title {
+  @apply uppercase;
+}
+
+.ranking-page__empty {
+  @apply text-body;
+}
+
+.ranking-page__list {
+  @apply flex w-full max-w-120 flex-col gap-2 text-left;
+}
+
+.ranking-page__item {
+  @apply flex items-center gap-4 rounded-md border border-border bg-surface-strong px-4 py-2.5;
+}
+
+.ranking-page__position {
+  @apply w-8 shrink-0 text-center text-xl font-semibold text-heading;
+}
+
+.ranking-page__name {
+  @apply grow truncate font-medium text-heading;
+}
+
+.ranking-page__score {
+  @apply shrink-0 font-semibold text-accent;
+}

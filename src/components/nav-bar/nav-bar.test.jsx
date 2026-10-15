@@ -52,7 +52,7 @@ describe("NavBar", () => {
     const { rerender } = renderNavBar({}, "es");
 
     expect(screen.getByRole("banner")).toHaveTextContent(
-      "Piedra Papel Tijeras"
+      "Piedra, Papel o Tijera"
     );
     expect(
       screen.getByRole("navigation", { name: "Navegación principal" })

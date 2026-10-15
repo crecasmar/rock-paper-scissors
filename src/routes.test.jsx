@@ -59,6 +59,46 @@ describe("AppRoutes", () => {
     );
   });
 
+  describe("ranking", () => {
+    test("renders the ranking page when the path is /ranking", () => {
+      renderRoutes(AppRoutes, "/ranking");
+      expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
+    });
+
+    test("is reachable from home and goes back to it", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/home");
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.see" })
+      );
+      expect(screen.getByTestId("ranking-page")).toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.back" })
+      );
+      expect(screen.getByTestId("home-page")).toBeInTheDocument();
+    });
+
+    test("is reachable from the game, lists the player and goes back", async () => {
+      const user = userEvent.setup();
+      renderRoutes(AppRoutes, "/");
+      await registerPlayer(user, "Maria");
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.see" })
+      );
+      expect(screen.getByRole("listitem")).toHaveTextContent(
+        "pages.ranking.player-label 1 Maria 0"
+      );
+
+      await user.click(
+        screen.getByRole("link", { name: "components.ranking-link.back" })
+      );
+      expect(screen.getByTestId("game-page")).toBeInTheDocument();
+    });
+  });
+
   describe("navigation bar", () => {
     test.each(["/home", "/unknown"])(
       "shows only the app name on %s when no player is logged in",
