@@ -5,7 +5,7 @@
   "components.nav-bar.greeting": "Hello {name}",
   "components.nav-bar.logout": "Log out",
 
-  "components.game-mode-selector.title": "Choose your mode",
+  "components.game-mode-selector.title": "Choose your game mode",
 
   "components.ranking-link.see": "See ranking",
   "components.ranking-link.back": "Go back",

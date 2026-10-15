@@ -68,6 +68,7 @@ Introduces un nombre, eliges tu siguiente jugada y el bot responderá con la suy
 - **Cerrar sesión** úsalo desde la barra de navegación para cambiar de jugador.
 - **Multidioma**: español e inglés. El idioma se elige automáticamente según el navegador (inglés por defecto).
 - **PWA instalable y offline**: las nuevas versiones se descargan en segundo plano y se usan en la siguiente visita, sin avisos ni recargas a mitad de partida.
+- **Modo claro y oscuro**: utiliza la aplicación en el modo favorito de tu navegador.
 
 ---
 

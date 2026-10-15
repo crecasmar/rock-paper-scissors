@@ -1,5 +1,6 @@
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { LogOutIcon } from "@/assets/icons";
 import Button from "@/components/button/button";
 import { BUTTON_VARIANTS } from "@/components/button/button-variants";
 import RankingLink from "@/components/ranking-link/ranking-link";
@@ -37,6 +38,7 @@ const NavBar = ({ userName, onLogout }) => {
             className="nav-bar__action"
             onClick={onLogout}
           >
+            <LogOutIcon className="button__icon" />
             <FormattedMessage id="components.nav-bar.logout" />
           </Button>
         ) : (

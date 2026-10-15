@@ -5,7 +5,7 @@
   "components.nav-bar.greeting": "Hola {name}",
   "components.nav-bar.logout": "Cerrar sesión",
 
-  "components.game-mode-selector.title": "Elige tu modo",
+  "components.game-mode-selector.title": "Elige tu modo de juego",
 
   "components.ranking-link.see": "Ver ranking",
   "components.ranking-link.back": "Volver",

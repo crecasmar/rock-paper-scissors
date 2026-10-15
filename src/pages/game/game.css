@@ -5,7 +5,7 @@
 }
 
 .game-page__score {
-  @apply text-2xl font-semibold text-heading;
+  @apply text-2xl font-semibold text-heading pt-4;
 }
 
 .game-page__actions {

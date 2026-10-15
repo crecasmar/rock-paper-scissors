@@ -37,9 +37,7 @@ describe("RankingLink", () => {
   test("shows the go back link on the ranking page", () => {
     renderLink(["/ranking"]);
 
-    expect(screen.getByRole("link", { name: BACK })).toHaveTextContent(
-      `↩ ${BACK}`
-    );
+    expect(screen.getByRole("link", { name: BACK })).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: SEE })).not.toBeInTheDocument();
   });
 

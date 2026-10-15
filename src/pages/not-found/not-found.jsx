@@ -1,5 +1,6 @@
 import { FormattedMessage } from "react-intl";
 
+import { BackIcon } from "@/assets/icons";
 import { Button } from "@/components";
 
 import "./not-found.css";
@@ -15,6 +16,7 @@ const NotFoundPage = () => (
     </h1>
 
     <Button to="/home">
+      <BackIcon className="button__icon" />
       <FormattedMessage id="pages.not-found.back" />
     </Button>
   </main>
